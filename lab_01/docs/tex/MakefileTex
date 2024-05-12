@@ -1,0 +1,14 @@
+.PHONY : build move
+
+see : build move
+
+build : report_cvetkov.tex
+	pdflatex -shell-escape report_cvetkov.tex
+	pdflatex -shell-escape report_cvetkov.tex
+	pdflatex -shell-escape report_cvetkov.tex
+
+move : report_cvetkov.pdf
+	-mkdir ../pdf
+	mv report_cvetkov.pdf ../pdf/ 
+	-mkdir ../out        
+	-mv *.aux *.log *.bbl *.blg *.dvi *.out *.toc *.bcf *.xml *.fdb_latexmk *.fls ../out/

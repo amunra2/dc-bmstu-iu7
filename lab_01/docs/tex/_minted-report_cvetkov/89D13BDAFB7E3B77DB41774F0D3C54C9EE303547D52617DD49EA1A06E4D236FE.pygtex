@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{builder} \PYG{k+kn}{import} \PYG{o}{*}
+\PYG{k+kn}{import} \PYG{n+nn}{sys}
+
+
+\PYG{k}{def} \PYG{n+nf}{main}\PYG{p}{():}
+    \PYG{n}{regexp} \PYG{o}{=} \PYG{n+nb}{input}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Введите регулярное выражение: \PYGZdq{}}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} regexp = \PYGZdq{}a(ab*)*\PYGZdq{}}
+    \PYG{c+c1}{\PYGZsh{} regexp = \PYGZdq{}(ab*)+ab\PYGZdq{}}
+
+    \PYG{n}{nfa} \PYG{o}{=} \PYG{n}{create\PYGZus{}nfa}\PYG{p}{(}\PYG{n}{regexp}\PYG{p}{)}
+    \PYG{n}{nfa}\PYG{o}{.}\PYG{n}{show\PYGZus{}automata}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+    \PYG{n}{dfa} \PYG{o}{=} \PYG{n}{convert\PYGZus{}to\PYGZus{}dfa}\PYG{p}{(}\PYG{n}{nfa}\PYG{p}{)}
+    \PYG{n}{dfa}\PYG{o}{.}\PYG{n}{show\PYGZus{}automata}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+    \PYG{n}{mdfa} \PYG{o}{=} \PYG{n}{minimize\PYGZus{}fda}\PYG{p}{(}\PYG{n}{dfa}\PYG{p}{)}
+    \PYG{n}{mdfa}\PYG{o}{.}\PYG{n}{show\PYGZus{}automata}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}
+
+    \PYG{k}{while}\PYG{p}{(}\PYG{k+kc}{True}\PYG{p}{):}
+        \PYG{n}{check} \PYG{o}{=} \PYG{n+nb}{input}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Введите строку для моделирования МКА (для выхода введите \PYGZsq{}N\PYGZsq{}): \PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{check}\PYG{o}{.}\PYG{n}{upper}\PYG{p}{()} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}N\PYGZsq{}}\PYG{p}{:}
+            \PYG{n}{exit}\PYG{p}{()}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{mdfa}\PYG{o}{.}\PYG{n}{model\PYGZus{}check}\PYG{p}{(}\PYG{n}{check}\PYG{p}{)}
+
+\PYG{k}{if} \PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZdq{}}\PYG{p}{:}
+    \PYG{n}{main}\PYG{p}{()}
+\end{Verbatim}

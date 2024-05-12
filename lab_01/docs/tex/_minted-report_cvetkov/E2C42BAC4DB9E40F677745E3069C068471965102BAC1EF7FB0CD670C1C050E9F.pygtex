@@ -1,0 +1,158 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+m+mf}{1.} \PYG{n}{Индивидуальная} \PYG{n}{матрица} \PYG{n}{по} \PYG{n}{варианту} \PYG{l+m+mi}{21}\PYG{p}{:}
+   \PYG{l+m+mi}{11}   \PYG{l+m+mi}{10}   \PYG{l+m+mi}{10}    \PYG{l+m+mi}{7}   \PYG{l+m+mi}{12}
+    \PYG{l+m+mi}{7}   \PYG{l+m+mi}{12}   \PYG{l+m+mi}{12}   \PYG{l+m+mi}{12}    \PYG{l+m+mi}{5}
+    \PYG{l+m+mi}{8}    \PYG{l+m+mi}{8}   \PYG{l+m+mi}{13}    \PYG{l+m+mi}{7}    \PYG{l+m+mi}{6}
+    \PYG{l+m+mi}{9}    \PYG{l+m+mi}{8}    \PYG{l+m+mi}{9}    \PYG{l+m+mi}{5}   \PYG{l+m+mi}{11}
+   \PYG{l+m+mi}{11}   \PYG{l+m+mi}{10}   \PYG{l+m+mi}{11}    \PYG{l+m+mi}{9}    \PYG{l+m+mi}{8}
+
+\PYG{l+m+mf}{2.1}\PYG{o}{.} \PYG{n}{Наименьшие} \PYG{n}{элементы} \PYG{n}{по} \PYG{n}{столбцам}\PYG{p}{:}
+   \PYG{l+m+mi}{7}   \PYG{l+m+mi}{8}   \PYG{l+m+mi}{9}   \PYG{l+m+mi}{5}   \PYG{l+m+mi}{5}
+
+\PYG{l+m+mf}{2.2}\PYG{o}{.} \PYG{n}{Матрица} \PYG{n}{с} \PYG{n}{вычитенными} \PYG{n}{наименьшими} \PYG{n}{элементами} \PYG{n}{по} \PYG{n}{столбцам}\PYG{p}{:}
+   \PYG{l+m+mi}{4}   \PYG{l+m+mi}{2}   \PYG{l+m+mi}{1}   \PYG{l+m+mi}{2}   \PYG{l+m+mi}{7}
+   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{4}   \PYG{l+m+mi}{3}   \PYG{l+m+mi}{7}   \PYG{l+m+mi}{0}
+   \PYG{l+m+mi}{1}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{4}   \PYG{l+m+mi}{2}   \PYG{l+m+mi}{1}
+   \PYG{l+m+mi}{2}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{6}
+   \PYG{l+m+mi}{4}   \PYG{l+m+mi}{2}   \PYG{l+m+mi}{2}   \PYG{l+m+mi}{4}   \PYG{l+m+mi}{3}
+
+\PYG{l+m+mf}{3.1}\PYG{o}{.} \PYG{n}{Наименьшие} \PYG{n}{элементы} \PYG{n}{по} \PYG{n}{строкам}\PYG{p}{:}
+   \PYG{l+m+mi}{1}
+   \PYG{l+m+mi}{0}
+   \PYG{l+m+mi}{0}
+   \PYG{l+m+mi}{0}
+   \PYG{l+m+mi}{2}
+
+\PYG{l+m+mf}{3.2}\PYG{o}{.} \PYG{n}{Матрица} \PYG{n}{с} \PYG{n}{вычитенными} \PYG{n}{наименьшими} \PYG{n}{элементами} \PYG{n}{по} \PYG{n}{строкам}\PYG{p}{:}
+   \PYG{l+m+mi}{3}   \PYG{l+m+mi}{1}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{1}   \PYG{l+m+mi}{6}
+   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{4}   \PYG{l+m+mi}{3}   \PYG{l+m+mi}{7}   \PYG{l+m+mi}{0}
+   \PYG{l+m+mi}{1}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{4}   \PYG{l+m+mi}{2}   \PYG{l+m+mi}{1}
+   \PYG{l+m+mi}{2}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{6}
+   \PYG{l+m+mi}{2}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{2}   \PYG{l+m+mi}{1}
+
+\PYG{l+m+mf}{4.} \PYG{n}{Начальная} \PYG{n}{СНН}\PYG{p}{:}
+
+        \PYG{l+m+mi}{3}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{6}
+        \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{4}               \PYG{l+m+mi}{3}               \PYG{l+m+mi}{7}               \PYG{l+m+mi}{0}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{4}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{6}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}
+
+\PYG{l+m+mf}{5.} \PYG{n}{Число} \PYG{n}{нулей} \PYG{n}{в} \PYG{n}{построенной} \PYG{n}{СНН}\PYG{p}{:} \PYG{n}{k} \PYG{o}{=} \PYG{l+m+mi}{4}
+
+\PYG{o}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}} \PYG{n}{Итерация} \PYG{err}{№}\PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+m+mf}{6.} \PYG{n}{Результат} \PYG{n}{выделения} \PYG{n}{столбцов}\PYG{p}{,} \PYG{n}{в} \PYG{n}{которых} \PYG{n}{стоит} \PYG{l+m+mi}{0}\PYG{o}{*}\PYG{p}{:}
+        \PYG{l+m+mi}{3}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{6}
+        \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{4}               \PYG{l+m+mi}{3}               \PYG{l+m+mi}{7}               \PYG{l+m+mi}{0}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{4}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{6}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}
+        \PYG{o}{+}               \PYG{o}{+}               \PYG{o}{+}               \PYG{o}{+}
+
+\PYG{l+m+mf}{7.} \PYG{n}{Поиск} \PYG{l+m+mi}{0} \PYG{n}{среди} \PYG{n}{невыделенных} \PYG{n}{элементов}
+
+\PYG{l+m+mf}{8.} \PYG{n}{Матрица} \PYG{n}{с} \PYG{n}{найденным} \PYG{l+m+mi}{0}\PYG{err}{`}
+
+        \PYG{l+m+mi}{3}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{6}
+        \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{4}               \PYG{l+m+mi}{3}               \PYG{l+m+mi}{7}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{4}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{6}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}
+        \PYG{o}{+}               \PYG{o}{+}               \PYG{o}{+}               \PYG{o}{+}
+
+\PYG{l+m+mf}{8.} \PYG{n}{В} \PYG{n}{одной} \PYG{n}{строке} \PYG{n}{с} \PYG{l+m+mi}{0}\PYG{o}{\PYGZhy{}}\PYG{n}{штрих} \PYG{n}{есть} \PYG{l+m+mi}{0}\PYG{o}{*}\PYG{p}{,} \PYG{n}{было} \PYG{n}{переброшено} \PYG{n}{выделение}\PYG{p}{:}
+        \PYG{l+m+mi}{3}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{6}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{4}               \PYG{l+m+mi}{3}               \PYG{l+m+mi}{7}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{4}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{6}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}
+                        \PYG{o}{+}               \PYG{o}{+}               \PYG{o}{+}
+
+\PYG{l+m+mf}{7.} \PYG{n}{Поиск} \PYG{l+m+mi}{0} \PYG{n}{среди} \PYG{n}{невыделенных} \PYG{n}{элементов}
+
+\PYG{l+m+mf}{7.1}\PYG{o}{.} \PYG{n}{Преобразование} \PYG{n}{матрицы}\PYG{p}{,} \PYG{n}{так} \PYG{n}{как} \PYG{n}{в} \PYG{n}{неотмеченных} \PYG{n}{столбцах} \PYG{n}{нет} \PYG{n}{нулей}\PYG{p}{:}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{5}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}               \PYG{l+m+mi}{4}               \PYG{l+m+mi}{8}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}}
+        \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{4}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}
+                        \PYG{o}{+}               \PYG{o}{+}               \PYG{o}{+}
+
+\PYG{l+m+mf}{8.} \PYG{n}{Матрица} \PYG{n}{с} \PYG{n}{найденным} \PYG{l+m+mi}{0}\PYG{err}{`}
+
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{5}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}               \PYG{l+m+mi}{4}               \PYG{l+m+mi}{8}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}}
+        \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}              0*              4               2               0}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}
+                        \PYG{o}{+}               \PYG{o}{+}               \PYG{o}{+}
+
+\PYG{l+m+mf}{8.} \PYG{n}{В} \PYG{n}{одной} \PYG{n}{строке} \PYG{n}{с} \PYG{l+m+mi}{0}\PYG{o}{\PYGZhy{}}\PYG{n}{штрих} \PYG{n}{есть} \PYG{l+m+mi}{0}\PYG{o}{*}\PYG{p}{,} \PYG{n}{было} \PYG{n}{переброшено} \PYG{n}{выделение}\PYG{p}{:}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{5}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}               \PYG{l+m+mi}{4}               \PYG{l+m+mi}{8}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}              0*              4               2               0}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}
+                                        \PYG{o}{+}               \PYG{o}{+}
+
+\PYG{l+m+mf}{7.} \PYG{n}{Поиск} \PYG{l+m+mi}{0} \PYG{n}{среди} \PYG{n}{невыделенных} \PYG{n}{элементов}
+
+\PYG{l+m+mf}{8.} \PYG{n}{Матрица} \PYG{n}{с} \PYG{n}{найденным} \PYG{l+m+mi}{0}\PYG{err}{`}
+
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{5}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}               \PYG{l+m+mi}{4}               \PYG{l+m+mi}{8}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}              0*              4               2               0}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}              0               0*              5}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}
+                                        \PYG{o}{+}               \PYG{o}{+}
+
+\PYG{l+m+mf}{8.} \PYG{n}{В} \PYG{n}{одной} \PYG{n}{строке} \PYG{n}{с} \PYG{l+m+mi}{0}\PYG{o}{\PYGZhy{}}\PYG{n}{штрих} \PYG{n}{есть} \PYG{l+m+mi}{0}\PYG{o}{*}\PYG{p}{,} \PYG{n}{было} \PYG{n}{переброшено} \PYG{n}{выделение}\PYG{p}{:}
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{5}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}               \PYG{l+m+mi}{4}               \PYG{l+m+mi}{8}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}              0*              4               2               0}
+\PYG{o}{+}       \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}              0               0*              5}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}
+                                        \PYG{o}{+}
+
+\PYG{l+m+mf}{7.} \PYG{n}{Поиск} \PYG{l+m+mi}{0} \PYG{n}{среди} \PYG{n}{невыделенных} \PYG{n}{элементов}
+
+\PYG{l+m+mf}{8.} \PYG{n}{Матрица} \PYG{n}{с} \PYG{n}{найденным} \PYG{l+m+mi}{0}\PYG{err}{`}
+
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{5}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}               \PYG{l+m+mi}{4}               \PYG{l+m+mi}{8}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{o}{+}       \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}              0*              4               2               0}
+\PYG{o}{+}       \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}              0               0*              5}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{l+s+s1}{\PYGZsq{}              0               2               0}
+                                        \PYG{o}{+}
+
+\PYG{l+m+mf}{10.} \PYG{n}{L}\PYG{o}{\PYGZhy{}}\PYG{n}{цепочка}\PYG{p}{:}
+\PYG{p}{[}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{]}
+
+\PYG{l+m+mf}{11.} \PYG{n}{Текущая} \PYG{n}{СНН}\PYG{p}{:}
+
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{5}
+        \PYG{l+m+mi}{0}               \PYG{l+m+mi}{5}               \PYG{l+m+mi}{4}               \PYG{l+m+mi}{8}               \PYG{l+m+mi}{0}\PYG{o}{*}
+        \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{0}               \PYG{l+m+mi}{4}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}
+
+\PYG{n}{Текущее} \PYG{n}{k} \PYG{o}{=} \PYG{l+m+mi}{5}
+\PYG{o}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+m+mf}{12.} \PYG{n}{Полученная} \PYG{n}{СНН}\PYG{p}{:}
+
+        \PYG{l+m+mi}{2}               \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{1}               \PYG{l+m+mi}{5}
+        \PYG{l+m+mi}{0}               \PYG{l+m+mi}{5}               \PYG{l+m+mi}{4}               \PYG{l+m+mi}{8}               \PYG{l+m+mi}{0}\PYG{o}{*}
+        \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{0}               \PYG{l+m+mi}{4}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{5}
+        \PYG{l+m+mi}{1}               \PYG{l+m+mi}{0}\PYG{o}{*}              \PYG{l+m+mi}{0}               \PYG{l+m+mi}{2}               \PYG{l+m+mi}{0}
+
+\PYG{l+m+mf}{13.} \PYG{n}{X} \PYG{n}{opt} \PYG{o}{=}
+   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{1}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}
+   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{1}
+   \PYG{l+m+mi}{1}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}
+   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{1}   \PYG{l+m+mi}{0}
+   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{1}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}   \PYG{l+m+mi}{0}
+
+\PYG{l+m+mf}{14.} \PYG{n}{f} \PYG{n}{opt} \PYG{o}{=} \PYG{l+m+mi}{38}
+\end{Verbatim}

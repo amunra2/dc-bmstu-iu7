@@ -1,0 +1,111 @@
+%% Creator: Inkscape 1.2.2 (b0a84865, 2022-12-01), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'scheme_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{953.31811523bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1.22847241)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{scheme_svg-tex.pdf}}%
+    \put(0.55825344,1.19346311){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Начало\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{scheme_svg-tex.pdf}}%
+    \put(0.55825344,1.09905601){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1. Из каждого столбца матрицы `C` вычитаем его наименьший элемент...\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{scheme_svg-tex.pdf}}%
+    \put(0.55825344,1.0046489){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}В текущей матрице стоимостей по столбцам сверху-вниз слева-направо ппросматриваем в поисках первого `0`, в одной строке с которым нет `0`*. Если такой `0` найден, то...\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{scheme_svg-tex.pdf}}%
+    \put(0.55825344,0.9102418){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}`k` - число нулей в СНН...\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{scheme_svg-tex.pdf}}%
+    \put(0.55825344,0.8158347){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}`k = n`\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{scheme_svg-tex.pdf}}%
+    \put(0.30650117,0.7214276){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Выделяем "`+`"  столбцы с `0`*\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{scheme_svg-tex.pdf}}%
+    \put(0.45597908,0.82370196){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}нет\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{scheme_svg-tex.pdf}}%
+    \put(0.30650117,0.6270205){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Среди невыделенных...\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{scheme_svg-tex.pdf}}%
+    \put(0.18062503,0.5326134){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Находим наименьший элемент `h > 0` среди невыделенных элементов\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{scheme_svg-tex.pdf}}%
+    \put(0.20422681,0.63488776){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}нет\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{scheme_svg-tex.pdf}}%
+    \put(0.18062503,0.4382063){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Вычитаем `h`  из невыделенных столбцов, добавляем `h` к выделенным строкам\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{scheme_svg-tex.pdf}}%
+    \put(0.46384634,0.5326134){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Отмечаем его `0^'`\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{scheme_svg-tex.pdf}}%
+    \put(0.41192243,0.63488776){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}да\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{scheme_svg-tex.pdf}}%
+    \put(0.46384634,0.4382063){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}В одной строке...\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{scheme_svg-tex.pdf}}%
+    \put(0.3379702,0.34379919){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Строим непродолжаемую `L`-цепочку:...\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{scheme_svg-tex.pdf}}%
+    \put(0.36157198,0.44607355){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}нет\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{scheme_svg-tex.pdf}}%
+    \put(0.62119151,0.34379919){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Снимаем выделение со...\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{scheme_svg-tex.pdf}}%
+    \put(0.5661207,0.44607355){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}да\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{scheme_svg-tex.pdf}}%
+    \put(0.3379702,0.24939209){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}В пределах `L`-цепочки:...\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{scheme_svg-tex.pdf}}%
+    \put(0.3379702,0.15498499){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Снимаем все выделения, кроме `0`*\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{scheme_svg-tex.pdf}}%
+    \put(0.62119151,0.24939209){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Выделяем строку с этим `0^'`\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{scheme_svg-tex.pdf}}%
+    \put(0.3379702,0.06057789){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}`k\text{++}`\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{scheme_svg-tex.pdf}}%
+    \put(0.90441281,0.7214276){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$$...\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{scheme_svg-tex.pdf}}%
+    \put(0.6605278,0.82763559){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}да\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{scheme_svg-tex.pdf}}%
+    \put(0.90441281,0.6270205){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$$ f^{opt} := f(x^{opt}) $$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{scheme_svg-tex.pdf}}%
+    \put(0.90441281,0.5326134){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$$ x^{opt}, f^{opt} $$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{scheme_svg-tex.pdf}}%
+    \put(0.90441281,0.4382063){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Конец\end{tabular}}}}%
+  \end{picture}%
+\endgroup%

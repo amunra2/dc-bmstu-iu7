@@ -1,0 +1,398 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }\PYG{n+nf}{labHungaryMethod}\PYG{p}{()}
+\PYG{+w}{  }\PYG{n+nb}{clc}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{isDebug}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{isSolveMax}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 1}
+\PYG{+w}{  }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}1. Индивидуальная матрица по варианту 21:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{n}{matrix}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}
+\PYG{+w}{    }\PYG{l+m+mi}{11}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{  }\PYG{l+m+mi}{7}\PYG{+w}{ }\PYG{l+m+mi}{12}\PYG{p}{;}
+\PYG{+w}{     }\PYG{n}{7}\PYG{+w}{ }\PYG{l+s}{12}\PYG{+w}{ }\PYG{l+s}{12}\PYG{+w}{ }\PYG{l+s}{12}\PYG{+w}{  }\PYG{l+s}{5}\PYG{p}{;}
+\PYG{+w}{     }\PYG{n}{8}\PYG{+w}{  }\PYG{l+s}{8}\PYG{+w}{ }\PYG{l+s}{13}\PYG{+w}{  }\PYG{l+s}{7}\PYG{+w}{  }\PYG{l+s}{6}\PYG{p}{;}
+\PYG{+w}{     }\PYG{n}{9}\PYG{+w}{  }\PYG{l+s}{8}\PYG{+w}{  }\PYG{l+s}{9}\PYG{+w}{  }\PYG{l+s}{5}\PYG{+w}{ }\PYG{l+s}{11}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{11}\PYG{+w}{ }\PYG{l+s}{10}\PYG{+w}{ }\PYG{l+s}{11}\PYG{+w}{  }\PYG{l+s}{9}\PYG{+w}{  }\PYG{l+s}{8}
+\PYG{+w}{  }\PYG{p}{];}
+
+\PYG{+w}{  }\PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{C}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{;}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 1.1\PYGZhy{}1.2}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isSolveMax}
+\PYG{+w}{    }\PYG{n}{C}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{convertToMin}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{isDebug}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n1.2. Матрица после приведения к задаче минимизации:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{C}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 2.1\PYGZhy{}2.2}
+\PYG{+w}{  }\PYG{n}{C}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{subMinColumns}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{isDebug}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{    }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n2.2. Матрица с вычитенными наименьшими элементами по столбцам:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{    }\PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{C}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 3.1\PYGZhy{}3.2}
+\PYG{+w}{  }\PYG{n}{C}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{subMinRows}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{isDebug}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{    }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n3.2. Матрица с вычитенными наименьшими элементами по строкам:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{    }\PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{C}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{p}{[}\PYG{n}{numRows}\PYG{p}{,}\PYG{n}{numCols}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{C}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 4}
+\PYG{+w}{  }\PYG{n}{matrixSIZ}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{getInitMatrixSIZ}\PYG{p}{(}\PYG{n}{C}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{    }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n4. Начальная СНН:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{    }\PYG{n}{printMatrixSIZ}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 5}
+\PYG{+w}{  }\PYG{n}{k}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{sum}\PYG{p}{(}\PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{matrixSIZ}\PYG{p}{));}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n5. Число нулей в построенной СНН: k = \PYGZpc{}d\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{n}{iteration}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+
+\PYG{+w}{  }\PYG{k}{while}\PYG{+w}{ }\PYG{n}{k}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} Итерация №\PYGZpc{}d \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{iteration}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{n}{matrixWithZeroStreaks}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{n}{numRows}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{numCols}\PYG{p}{);}
+\PYG{+w}{    }\PYG{n}{selectedCols}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{matrixSIZ}\PYG{p}{);}
+\PYG{+w}{    }\PYG{n}{selectedRows}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{n}{numRows}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 6}
+\PYG{+w}{    }\PYG{n}{selection}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{getSelection}\PYG{p}{(}\PYG{n}{numRows}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{numCols}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedCols}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n6. Результат выделения столбцов, в которых стоит 0*:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{n}{printMarkedMatrix}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixWithZeroStreaks}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedCols}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedRows}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{n+nb}{flag}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{streakPnt}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{];}
+
+\PYG{+w}{    }\PYG{k}{while}\PYG{+w}{ }\PYG{n+nb}{flag}
+\PYG{+w}{      }\PYG{c}{\PYGZpc{} 7}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{        }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n7. Поиск 0 среди невыделенных элементов\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{k}{end}
+
+\PYG{+w}{      }\PYG{c}{\PYGZpc{} 7.1}
+\PYG{+w}{      }\PYG{n}{streakPnt}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{findStreak}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selection}\PYG{p}{);}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{streakPnt}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+\PYG{+w}{        }\PYG{n}{C}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{updateMatrixNoZero}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{numRows}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{numCols}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selection}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedRows}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedCols}\PYG{p}{);}
+
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{          }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n7.1. Преобразование матрицы, так как в неотмеченных столбцах нет нулей:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{          }\PYG{n}{printMarkedMatrix}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixWithZeroStreaks}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedCols}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedRows}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{end}
+
+\PYG{+w}{        }\PYG{n}{streakPnt}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{findStreak}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selection}\PYG{p}{);}
+\PYG{+w}{      }\PYG{k}{end}
+
+\PYG{+w}{      }\PYG{n}{matrixWithZeroStreaks}\PYG{p}{(}\PYG{n}{streakPnt}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{),}\PYG{+w}{ }\PYG{n}{streakPnt}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{))}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{          }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n8. Матрица с найденным 0`\PYGZbs{}n\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{          }\PYG{n}{printMarkedMatrix}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixWithZeroStreaks}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedCols}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedRows}\PYG{p}{);}
+\PYG{+w}{      }\PYG{k}{end}
+
+\PYG{+w}{      }\PYG{c}{\PYGZpc{} 8. Найти 0\PYGZsq{} в той же строке, что и 0*}
+\PYG{+w}{      }\PYG{n}{zeroStarInRow}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{getZeroStarInRowWithZeroStreak}\PYG{p}{(}\PYG{n}{streakPnt}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{numCols}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{);}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{zeroStarInRow}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+\PYG{+w}{        }\PYG{n+nb}{flag}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{else}
+\PYG{+w}{        }\PYG{c}{\PYGZpc{} 1. снять выделение со столбца с 0*}
+\PYG{+w}{        }\PYG{n}{selection}\PYG{p}{(:,}\PYG{+w}{ }\PYG{n}{zeroStarInRow}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{))}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{selection}\PYG{p}{(:,}\PYG{+w}{ }\PYG{n}{zeroStarInRow}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{))}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{        }\PYG{n}{selectedCols}\PYG{p}{(}\PYG{n}{zeroStarInRow}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{))}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{+w}{        }\PYG{c}{\PYGZpc{} 2. перенести выделение на строку с 0\PYGZsq{}}
+\PYG{+w}{        }\PYG{n}{selection}\PYG{p}{(}\PYG{n}{zeroStarInRow}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{),}\PYG{+w}{ }\PYG{p}{:)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{selection}\PYG{p}{(}\PYG{n}{zeroStarInRow}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{),}\PYG{+w}{ }\PYG{p}{:)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{        }\PYG{n}{selectedRows}\PYG{p}{(}\PYG{n}{zeroStarInRow}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{))}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{          }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n8. В одной строке с 0\PYGZhy{}штрих есть 0*, было переброшено выделение:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{          }\PYG{n}{printMarkedMatrix}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixWithZeroStreaks}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedCols}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{selectedRows}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 9. L\PYGZhy{}цепочка}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n10. L\PYGZhy{}цепочка:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{p}{[}\PYG{n}{matrixWithZeroStreaks}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{createLChain}\PYG{p}{(}\PYG{n}{numRows}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{numCols}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{streakPnt}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixWithZeroStreaks}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{isDebug}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{n}{k}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{sum}\PYG{p}{(}\PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{matrixSIZ}\PYG{p}{));}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n11. Текущая СНН:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{n}{printMatrixSIZ}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{);}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}nТекущее k = \PYGZpc{}d\PYGZbs{}n\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{n}{iteration}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{iteration}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{      }\PYG{n+nb}{disp}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{n+nb}{disp}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}12. Полученная СНН:\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{printMatrixSIZ}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n13. X opt =\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{matrixSIZ}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{n}{fOpt}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{getFOpt}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}n\PYGZbs{}n14. f opt = \PYGZpc{}d\PYGZbs{}n\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{fOpt}\PYG{p}{);}
+
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} ФУНКЦИИ}
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} ФУНКЦИИ ДЛЯ ВЕНГЕРСКОГО МЕТОДА}
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 1.1. Приведение к задаче минимизации эквивалентной задачи максимизации}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }matrix\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{convertToMin}\PYG{p}{(}matrix, isDebug\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{maxElement}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{max}\PYG{p}{(}\PYG{n+nb}{max}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{));}
+
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n1.1. Найденный максимальный элемент: \PYGZpc{}d\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{maxElement}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{n}{matrix}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{matrix}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{maxElement}\PYG{p}{;}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 2. Из каждого столбца матрицы стоимостей вычитаем его наименьший элемент}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }matrix\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{subMinColumns}\PYG{p}{(}matrix, isDebug\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{minElementArr}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{min}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n2.1. Наименьшие элементы по столбцам:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{minElementArr}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n+nb}{length}\PYG{p}{(}\PYG{n}{minElementArr}\PYG{p}{)}
+\PYG{+w}{      }\PYG{n}{matrix}\PYG{p}{(:,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(:,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{minElementArr}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 3. Из каждой строки матрицы стоимостей вычитаем ее наименьший элемент}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }matrix\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{subMinRows}\PYG{p}{(}matrix, isDebug\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{minElementArr}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{min}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{[],}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n3.1. Наименьшие элементы по строкам:\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{minElementArr}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n+nb}{length}\PYG{p}{(}\PYG{n}{minElementArr}\PYG{p}{)}
+\PYG{+w}{      }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{:)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{:)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{minElementArr}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 4. Начальное состояние СНН}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }matrixSIZ\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{getInitMatrixSIZ}\PYG{p}{(}matrix\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{[}\PYG{n}{numRows}\PYG{p}{,}\PYG{n}{numCols}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{);}
+\PYG{+w}{    }\PYG{n}{matrixSIZ}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{n}{numRows}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{numCols}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{      }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numRows}
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{          }\PYG{n+nb}{count}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{          }\PYG{k}{for}\PYG{+w}{ }\PYG{n}{k}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{            }\PYG{n+nb}{count}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{count}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{);}
+\PYG{+w}{          }\PYG{k}{end}
+\PYG{+w}{          }\PYG{k}{for}\PYG{+w}{ }\PYG{n}{k}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numRows}
+\PYG{+w}{            }\PYG{n+nb}{count}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{count}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{(}\PYG{n}{k}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{);}
+\PYG{+w}{          }\PYG{k}{end}
+\PYG{+w}{          }\PYG{k}{if}\PYG{+w}{ }\PYG{n+nb}{count}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{            }\PYG{n}{matrixSIZ}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{          }\PYG{k}{end}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 6. Выделить столбцы, в которых стоит 0*}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }[selection]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{getSelection}\PYG{p}{(}numRows, numCols, selectedCols\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{selection}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{n}{numRows}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{numCols}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{selectedCols}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{        }\PYG{n}{selection}\PYG{p}{(:,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{selection}\PYG{p}{(:,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 7. Найти первый нулевой элемент среди невыделенных, в одной строке с которым не стоит 0*}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }[streakPnt]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{findStreak}\PYG{p}{(}matrix, selection\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{streakPnt}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{];}
+\PYG{+w}{    }\PYG{p}{[}\PYG{n}{numRows}\PYG{p}{,}\PYG{n}{numCols}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{      }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numRows}
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{selection}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{          }\PYG{n}{streakPnt}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{;}
+\PYG{+w}{          }\PYG{n}{streakPnt}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{;}
+\PYG{+w}{          }\PYG{k}{return}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 7.1. Обновление матрицы, если в ней не нашлось 0 в невыделенных столбцах}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }[matrix]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{updateMatrixNoZero}\PYG{p}{(}matrix, numRows, numCols, selection, selectedRows, selectedCols\PYG{p}{)}
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 1. Поиск наименьшего элемента матрицы среди невыделенных}
+\PYG{+w}{    }\PYG{n}{h}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1000000}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{      }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numRows}
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{selection}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{h}
+\PYG{+w}{          }\PYG{n}{h}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 2. Вычитание h из невыделенных столбцов}
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{selectedCols}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{            }\PYG{n}{matrix}\PYG{p}{(:,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(:,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{h}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} 3. Прибавление h к выделенным строкам}
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numRows}
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{selectedRows}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{            }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{:)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{:)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{h}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 8. Найти 0* в той же строке, что и 0\PYGZsq{}}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }[zeroStarInRow]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{getZeroStarInRowWithZeroStreak}\PYG{p}{(}streakPnt, numCols, matrixSIZ\PYG{p}{)}
+\PYG{+w}{    }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{streakPnt}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{);}
+\PYG{+w}{    }\PYG{n}{zeroStarInRow}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{];}
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{        }\PYG{n}{zeroStarInRow}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{;}
+\PYG{+w}{        }\PYG{n}{zeroStarInRow}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{break}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 9. Построить L\PYGZhy{}цепочку}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }\PYG{n+nf}{[matrixWithZeroStreaks, matrixSIZ] = createLChain}\PYG{p}{(}numRows, numCols, streakPnt, matrixWithZeroStreaks, matrixSIZ, isDebug\PYG{p}{)}
+\PYG{+w}{    }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{streakPnt}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{);}
+\PYG{+w}{    }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{streakPnt}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{k}{while}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{numRows}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{      }\PYG{c}{\PYGZpc{} 1. Снять *}
+\PYG{+w}{      }\PYG{n}{matrixWithZeroStreaks}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{+w}{      }\PYG{c}{\PYGZpc{} 2. Заменить \PYGZsq{} на *}
+\PYG{+w}{      }\PYG{n}{matrixSIZ}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{        }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}[\PYGZpc{}d, \PYGZpc{}d] \PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{);}
+\PYG{+w}{      }\PYG{k}{end}
+
+\PYG{+w}{      }\PYG{c}{\PYGZpc{} 3. Дойти до 0* по столбцу от 0\PYGZsq{}}
+\PYG{+w}{      }\PYG{n}{kRow}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{while}\PYG{+w}{ }\PYG{n}{kRow}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{numRows}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{matrixSIZ}\PYG{p}{(}\PYG{n}{kRow}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZti{}=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }\PYG{n}{kRow}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}
+\PYG{+w}{        }\PYG{n}{kRow}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{kRow}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{end}
+
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{kRow}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{numRows}\PYG{p}{)}
+\PYG{+w}{        }\PYG{c}{\PYGZpc{} 4. Дойти до 0\PYGZsq{} по столбцу от 0*}
+\PYG{+w}{        }\PYG{n}{lCol}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{while}\PYG{+w}{ }\PYG{n}{lCol}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{numCols}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{matrixWithZeroStreaks}\PYG{p}{(}\PYG{n}{kRow}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{lCol}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZti{}=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }\PYG{n}{lCol}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n}{lCol}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{lCol}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{end}
+
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{lCol}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{            }\PYG{n}{matrixSIZ}\PYG{p}{(}\PYG{n}{kRow}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{isDebug}
+\PYG{+w}{              }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZhy{}\PYGZgt{} [\PYGZpc{}d, \PYGZpc{}d] \PYGZhy{}\PYGZgt{} \PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{kRow}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{);}
+\PYG{+w}{            }\PYG{k}{end}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{        }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{lCol}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{      }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{kRow}\PYG{p}{;}
+\PYG{+w}{     }\PYG{k}{end}
+
+\PYG{+w}{     }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}n\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 14. f opt}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }[fOpt]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{getFOpt}\PYG{p}{(}matrix, matrixSIZ\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{fOpt}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{[}\PYG{n}{numRows}\PYG{p}{,}\PYG{n}{numCols}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{      }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numRows}
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{          }\PYG{n}{fOpt}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n}{fOpt}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{  }\PYG{k}{end}
+
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ}
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 1. Распечатать матрицу СНН}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }[]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{printMatrixSIZ}\PYG{p}{(}matrix, matrixSIZ\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{[}\PYG{n}{numRows}\PYG{p}{,}\PYG{n}{numCols}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}n\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numRows}
+\PYG{+w}{      }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{          }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}t\PYGZpc{}d*\PYGZbs{}t\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{));}
+\PYG{+w}{        }\PYG{k}{else}
+\PYG{+w}{          }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}t\PYGZpc{}d\PYGZbs{}t\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{));}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}n\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{    }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}n\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{end}
+
+\PYG{+w}{  }\PYG{c}{\PYGZpc{} 2. Распечатать отмеченную матрицу}
+\PYG{+w}{  }\PYG{k}{function}\PYG{+w}{ }[]\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{printMarkedMatrix}\PYG{p}{(}matrix, matrixSIZ, matrixWithZeroStreaks, selectedCols, selectedRows\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{[}\PYG{n}{numRows}\PYG{p}{,}\PYG{n}{numCols}\PYG{p}{]}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{matrix}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numRows}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{selectedRows}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{        }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}+\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{end}
+
+\PYG{+w}{      }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{        }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}t\PYGZpc{}d\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{matrix}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{))}
+\PYG{+w}{        }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{matrixSIZ}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{          }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}*\PYGZbs{}t\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{elseif}\PYG{+w}{ }\PYG{n}{matrixWithZeroStreaks}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{j}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{          }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZsq{}\PYGZbs{}t\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{else}
+\PYG{+w}{          }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}t\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{      }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{    }\PYG{k}{end}
+
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{n+nb}{i}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{:}\PYG{+w}{ }\PYG{n}{numCols}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{selectedCols}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{        }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}t+\PYGZbs{}t\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{else}
+\PYG{+w}{        }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{} \PYGZbs{}t\PYGZbs{}t\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{end}
+\PYG{+w}{    }\PYG{n+nb}{fprintf}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZbs{}n\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{end}
+\PYG{k}{end}
+\end{Verbatim}
