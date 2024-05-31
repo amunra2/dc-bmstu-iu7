@@ -197,82 +197,6 @@ def convert_to_dfa(nfda):
 
 
 
-class DfaStandart: # ранее рассмотренное представление не подходит для использования алгоритма Бржозовского
-    def __init__(self) -> None:
-        self.Q = [] # состояния
-        self.A = [] # алфавит
-        self.T = [] # функции переходов -> состояние: в какие переходит и по какой букве
-        self.S = [] # начальные состояния
-        self.F = [] # конечные состояния
-
-    def convertFromDFA(self, dfa: DFA) -> None:
-        if dfa.table:
-            self.A = dfa.alphabet()
-            self.F = dfa.final_states
-
-            num_of_states = dfa.num_of_states()
-            self.Q = [i for i in range(num_of_states)]
-
-            self.S = self.__getStartStatesFromDFA(dfa, self.Q[:])
-            self.T = copy.deepcopy(dfa.proxy.table)
-
-    def revertDFA(self) -> None:
-        final_state_tmp = self.F[:]
-        self.F = self.S
-        self.S = final_state_tmp
-
-        new_table = {char: [[] for _ in range(len(self.Q))] for char in self.A}
-
-        for char, state_list in self.T.items():
-            for start_state, char_states in enumerate(state_list):
-                if len(char_states) != 0:
-                    for end_state in char_states:
-                        new_table[char][end_state].append(start_state)
-
-        self.T = new_table
-
-    def detDFA(self) -> None:
-        def reachable(q, state):
-            t = dict()
-            for char in self.A:
-                ts = set()
-                for i in q[state]:
-                    ts |= set(self.T[char][i])
-                if not ts:
-                    t[char] = []
-                    continue
-                try:
-                    i = q.index(ts)
-                except ValueError:
-                    i = len(q)
-                    q.append(ts)
-                t[char] = [i]
-            return t
-
-        q = [set(self.S)]
-        new_table = {char: [] for char in self.A}
-
-        while len(list(new_table.values())[0]) < len(q):
-            tmp = reachable(q, len(list(new_table.values())[0])) # -> {a: [[]], b: [[]]}
-            for char in self.A:
-                new_table[char].append(tmp[char])
-        
-        self.S = [0]
-        self.Q = [i for i in range(0, len(q))]
-        self.F = [q.index(i) for i in q if set(self.F) & i]
-        self.T = new_table
-
-
-    def __getStartStatesFromDFA(self, dfa: DFA, Q: List[int]) -> List[int]:
-        for _, state_list in dfa.proxy.table.items():
-            for start_state, char_states in enumerate(state_list):
-                if len(char_states) != 0:
-                    for end_state in char_states:
-                        if start_state != end_state and end_state in Q:
-                            Q.remove(end_state)
-        return Q
-
-
 def min_brzhzovskiy(fda: DFA):
     fda.revertDFA()
     fda.detDFA()
@@ -285,51 +209,80 @@ def minimize_fda(dfa: DFA):
     dfa = min_brzhzovskiy(dfa)
     return DFA(table=dfa.table, final_states=dfa.final_states)
 
-    def split_set(target, splitter, split_char):
-        R1 = set()
-        R2 = set()
-        for v in target:
-            if fda.table[split_char][v] in splitter:
-                R1.add(v)
-            else:
-                R2.add(v)
-        return R1, R2
 
-    sets = [{*fda.final_states}]
-    non_final = {*list(range(fda.num_of_states()))}.difference(fda.final_states)
-    if len(non_final) > 0:
-        sets.append(non_final)
-    queue = []
-    for c in fda.getAlphabet():
-        for s in sets:
-            queue.append((s, c))
-    while len(queue) > 0:
-        splitter, char = queue.pop(0)
-        for s in sets:
-            R1, R2 = split_set(s, splitter, char)
-            if len(R1) > 0 and len(R2) > 0:
-                sets.remove(s)
-                sets.extend([R1, R2])
-                if (s, char) in queue:
-                    queue.remove((s, char))
-                    queue.append((R1, char))
-                    queue.append((R2, char))
-                else:
-                    if len(R1) < len(R2):
-                        queue.append((R1, char))
-                    else:
-                        queue.append((R2, char))
 
-    first_state_index = [sets.index(s) for s in sets if 0 in s][0]
-    first_state = sets.pop(first_state_index)
-    sets.insert(0, first_state)
 
-    num_of_states = len(sets)
-    new_table = {k: [None] * num_of_states for k in fda.getAlphabet()}
-    for i, s in enumerate(sets):
-        for v in s:
-            for c in fda.getAlphabet():
-                new_indexes = [sets.index(s) for s in sets if fda.table[c][v] in s]
-                new_table[c][i] = None if len(new_indexes) == 0 else new_indexes[0]
-    new_final = [sets.index(s) for s in sets if s.intersection(fda.final_states)]
-    return DFA(table=new_table, final_states=new_final)
+# class DfaStandart: # ранее рассмотренное представление не подходит для использования алгоритма Бржозовского
+#     def __init__(self) -> None:
+#         self.Q = [] # состояния
+#         self.A = [] # алфавит
+#         self.T = [] # функции переходов -> состояние: в какие переходит и по какой букве
+#         self.S = [] # начальные состояния
+#         self.F = [] # конечные состояния
+
+#     def convertFromDFA(self, dfa: DFA) -> None:
+#         if dfa.table:
+#             self.A = dfa.alphabet()
+#             self.F = dfa.final_states
+
+#             num_of_states = dfa.num_of_states()
+#             self.Q = [i for i in range(num_of_states)]
+
+#             self.S = self.__getStartStatesFromDFA(dfa, self.Q[:])
+#             self.T = copy.deepcopy(dfa.proxy.table)
+
+#     def revertDFA(self) -> None:
+#         final_state_tmp = self.F[:]
+#         self.F = self.S
+#         self.S = final_state_tmp
+
+#         new_table = {char: [[] for _ in range(len(self.Q))] for char in self.A}
+
+#         for char, state_list in self.T.items():
+#             for start_state, char_states in enumerate(state_list):
+#                 if len(char_states) != 0:
+#                     for end_state in char_states:
+#                         new_table[char][end_state].append(start_state)
+
+#         self.T = new_table
+
+#     def detDFA(self) -> None:
+#         def reachable(q, state):
+#             t = dict()
+#             for char in self.A:
+#                 ts = set()
+#                 for i in q[state]:
+#                     ts |= set(self.T[char][i])
+#                 if not ts:
+#                     t[char] = []
+#                     continue
+#                 try:
+#                     i = q.index(ts)
+#                 except ValueError:
+#                     i = len(q)
+#                     q.append(ts)
+#                 t[char] = [i]
+#             return t
+
+#         q = [set(self.S)]
+#         new_table = {char: [] for char in self.A}
+
+#         while len(list(new_table.values())[0]) < len(q):
+#             tmp = reachable(q, len(list(new_table.values())[0])) # -> {a: [[]], b: [[]]}
+#             for char in self.A:
+#                 new_table[char].append(tmp[char])
+        
+#         self.S = [0]
+#         self.Q = [i for i in range(0, len(q))]
+#         self.F = [q.index(i) for i in q if set(self.F) & i]
+#         self.T = new_table
+
+
+#     def __getStartStatesFromDFA(self, dfa: DFA, Q: List[int]) -> List[int]:
+#         for _, state_list in dfa.proxy.table.items():
+#             for start_state, char_states in enumerate(state_list):
+#                 if len(char_states) != 0:
+#                     for end_state in char_states:
+#                         if start_state != end_state and end_state in Q:
+#                             Q.remove(end_state)
+#         return Q

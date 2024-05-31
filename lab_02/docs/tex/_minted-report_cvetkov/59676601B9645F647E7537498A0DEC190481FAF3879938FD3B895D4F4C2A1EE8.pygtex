@@ -1,0 +1,324 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{functools} \PYG{k+kn}{import} \PYG{n}{reduce}
+\PYG{k+kn}{from} \PYG{n+nn}{copy} \PYG{k+kn}{import} \PYG{n}{deepcopy}
+
+
+\PYG{k}{class} \PYG{n+nc}{Grammar}\PYG{p}{:}
+  \PYG{n}{notTerminals}\PYG{p}{:} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{]}
+  \PYG{n}{terminals}\PYG{p}{:} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{]}
+  \PYG{n}{rules}\PYG{p}{:} \PYG{n+nb}{dict}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{,} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{]]]}
+  \PYG{n}{start}\PYG{p}{:} \PYG{n+nb}{str}
+  
+  \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}
+    \PYG{n+nb+bp}{self}\PYG{p}{,} 
+    \PYG{n}{notTerminals}\PYG{p}{:} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{],}
+    \PYG{n}{terminals}\PYG{p}{:} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{],} 
+    \PYG{n}{rules}\PYG{p}{:} \PYG{n+nb}{dict}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{,} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{]]],} 
+    \PYG{n}{start}\PYG{p}{:} \PYG{n+nb}{str}
+  \PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+    \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals} \PYG{o}{=} \PYG{n}{notTerminals}
+    \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals} \PYG{o}{=} \PYG{n}{terminals}
+    \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules} \PYG{o}{=} \PYG{n}{rules}
+    \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{start} \PYG{o}{=} \PYG{n}{start}
+
+  \PYG{k}{def} \PYG{n+nf}{printGrammar}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+    \PYG{n}{notTerminals} \PYG{o}{=} \PYG{n}{Grammar}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}joinListWithSymbol}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{terminals} \PYG{o}{=} \PYG{n}{Grammar}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}joinListWithSymbol}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}, \PYGZdq{}}\PYG{p}{)}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{G = (}\PYG{l+s+se}{\PYGZob{}\PYGZob{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{notTerminals}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+se}{\PYGZcb{}\PYGZcb{}}\PYG{l+s+s2}{, }\PYG{l+s+se}{\PYGZob{}\PYGZob{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{terminals}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+se}{\PYGZcb{}\PYGZcb{}}\PYG{l+s+s2}{, P, }\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{start}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{), где P состоит из правил:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{for}  \PYG{n}{notTerminal} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+      \PYG{n}{rightRules} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{]}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}printProduct}\PYG{p}{(}\PYG{n}{notTerminal}\PYG{p}{,} \PYG{n}{rightRules}\PYG{p}{)}
+
+  \PYG{k}{def} \PYG{n+nf}{removeLeftRecursion}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+    \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{k}{while} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{):}
+      \PYG{n}{copyRightRules} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]]}\PYG{o}{.}\PYG{n}{copy}\PYG{p}{()}
+      \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{i}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}replaceProducts}\PYG{p}{(}
+          \PYG{n}{notTerminal}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],}
+          \PYG{n}{replaceableNotTerminal}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],}
+        \PYG{p}{)}
+      \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}removeDirectLeftRecursion}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]):}
+        \PYG{n}{i} \PYG{o}{+=} \PYG{l+m+mi}{2}
+      \PYG{k}{else}\PYG{p}{:}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]]} \PYG{o}{=} \PYG{n}{copyRightRules}
+        \PYG{n}{i} \PYG{o}{+=} \PYG{l+m+mi}{1}
+  
+  \PYG{k}{def} \PYG{n+nf}{removeLeftFactorization}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+    \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{k}{while} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{):}
+      \PYG{n}{maxPrefix} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}
+      \PYG{n}{rightRules} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]]}
+      \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRules}\PYG{p}{)):}
+        \PYG{n}{prefix} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}
+        \PYG{k}{for} \PYG{n}{symbol} \PYG{o+ow}{in} \PYG{n}{rightRules}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]:}
+          \PYG{n}{indexList} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}findPrefixMatches}\PYG{p}{(}
+            \PYG{n}{rightRules}\PYG{o}{=}\PYG{n}{rightRules}\PYG{p}{,}
+            \PYG{n}{prefix}\PYG{o}{=}\PYG{n}{prefix} \PYG{o}{+} \PYG{n}{symbol}\PYG{p}{,}
+          \PYG{p}{)}
+          \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{indexList}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{1}\PYG{p}{:}
+            \PYG{n}{prefix} \PYG{o}{+=} \PYG{n}{symbol}
+          \PYG{k}{else}\PYG{p}{:}
+            \PYG{k}{break}
+        
+        \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{prefix}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{maxPrefix}\PYG{p}{):}
+          \PYG{n}{maxPrefix} \PYG{o}{=} \PYG{n}{prefix}
+      
+      \PYG{k}{if} \PYG{n}{maxPrefix}\PYG{p}{:}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Самый длинный префикс для }\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{maxPrefix}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}removeDirectLeftFactorization}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{maxPrefix}\PYG{p}{)}
+      \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{i} \PYG{o}{+=} \PYG{l+m+mi}{1}
+
+  \PYG{k}{def} \PYG{n+nf}{convertToChomskyForm}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+    \PYG{k}{for} \PYG{n}{notTerminal} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{copy}\PYG{p}{():}
+      \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{])):}
+        \PYG{n}{rightRule} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{][}\PYG{n}{i}\PYG{p}{]}
+        \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{2} \PYG{o+ow}{and} \PYGZbs{}
+          \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals} \PYG{o+ow}{and} \PYGZbs{}
+          \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals} \PYG{o+ow}{or} \PYGZbs{}
+          \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{1} \PYG{o+ow}{and} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals} \PYG{o+ow}{or} \PYGZbs{}
+          \PYG{n}{notTerminal} \PYG{o}{==} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{start} \PYG{o+ow}{and} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}e\PYGZdq{}}\PYG{p}{:}
+          \PYG{k}{continue}
+        
+        \PYG{k}{elif} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{2} \PYG{o+ow}{and} \PYGZbs{}
+          \PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals} \PYG{o+ow}{or} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals}\PYG{p}{):}
+          \PYG{k}{if} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals}\PYG{p}{:}
+            \PYG{n}{firstElem} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}}
+            \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{firstElem} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+              \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{firstElem}\PYG{p}{)}
+              \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{firstElem}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]]}
+          \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{firstElem} \PYG{o}{=} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+
+          \PYG{k}{if} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals}\PYG{p}{:}
+            \PYG{n}{secondElem} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}}
+            \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{secondElem} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+              \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{secondElem}\PYG{p}{)}
+              \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{secondElem}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]]]}
+          \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{secondElem} \PYG{o}{=} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+
+          \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{][}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[}\PYG{n}{firstElem}\PYG{p}{,} \PYG{n}{secondElem}\PYG{p}{]}
+
+        \PYG{k}{elif} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{2}\PYG{p}{:}
+          \PYG{k}{if} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{][}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}}\PYG{l+s+si}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:])}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZdq{}}\PYG{p}{]}
+          \PYG{k}{else}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{][}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}}\PYG{p}{,} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}}\PYG{l+s+si}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:])}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZdq{}}\PYG{p}{]}
+            \PYG{k}{if} \PYG{o+ow}{not} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+              \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}}\PYG{p}{)}
+              \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]]}
+
+          \PYG{n}{rightRule} \PYG{o}{=} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:]}
+          \PYG{n}{newNotTerminal} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}}\PYG{l+s+si}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZdq{}}
+          \PYG{k}{while} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{2}\PYG{p}{:}
+            \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{newNotTerminal} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+              \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{newNotTerminal}\PYG{p}{)}
+      
+              \PYG{k}{if} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+                \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{newNotTerminal}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}}\PYG{l+s+si}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:])}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZdq{}}\PYG{p}{]]}
+              \PYG{k}{else}\PYG{p}{:}
+                \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{newNotTerminal}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}}\PYG{p}{,} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}}\PYG{l+s+si}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:])}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZdq{}}\PYG{p}{]]}
+                \PYG{k}{if} \PYG{o+ow}{not} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+                  \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}}\PYG{p}{)}
+                  \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]]}
+
+            \PYG{n}{rightRule} \PYG{o}{=} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:]}
+            \PYG{n}{newNotTerminal} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}}\PYG{l+s+si}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZdq{}}
+
+          \PYG{n}{newNotTerminal} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}\PYGZlt{}}\PYG{l+s+si}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZdq{}}
+          \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{newNotTerminal} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+            \PYG{k}{if} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals}\PYG{p}{:}
+              \PYG{n}{firstElem} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}}
+              \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{firstElem} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+                \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{firstElem}\PYG{p}{)}
+                \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{firstElem}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]]}
+            \PYG{k}{else}\PYG{p}{:}
+              \PYG{n}{firstElem} \PYG{o}{=} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+
+            \PYG{k}{if} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals}\PYG{p}{:}
+              \PYG{n}{secondElem} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZsq{}\PYGZdq{}}
+              \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{secondElem} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+                \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{secondElem}\PYG{p}{)}
+                \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{secondElem}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[}\PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]]]}
+            \PYG{k}{else}\PYG{p}{:}
+              \PYG{n}{secondElem} \PYG{o}{=} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+            
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{newNotTerminal}\PYG{p}{)}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{newNotTerminal}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[}\PYG{n}{firstElem}\PYG{p}{,} \PYG{n}{secondElem}\PYG{p}{]]}
+             
+  \PYG{k}{def} \PYG{n+nf}{createFileFromGrammar}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{fileName}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+    \PYG{k}{with} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{fileName}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}w\PYGZdq{}}\PYG{p}{)} \PYG{k}{as} \PYG{n}{f}\PYG{p}{:}
+      \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{)):}
+        \PYG{k}{if} \PYG{n}{i}\PYG{p}{:}
+          \PYG{n}{f}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)}
+        \PYG{n}{f}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+      \PYG{n}{f}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+      \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals}\PYG{p}{)):}
+        \PYG{k}{if} \PYG{n}{i}\PYG{p}{:}
+          \PYG{n}{f}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)}
+        \PYG{n}{f}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{terminals}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+      \PYG{n}{f}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+      \PYG{k}{for} \PYG{n}{notTerminal} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+        \PYG{k}{for} \PYG{n}{rightRule} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{]:}
+          \PYG{n}{f}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{notTerminal}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ \PYGZhy{}\PYGZgt{}\PYGZdq{}}\PYG{p}{)}
+          \PYG{k}{for} \PYG{n}{symbol} \PYG{o+ow}{in} \PYG{n}{rightRule}\PYG{p}{:}
+            \PYG{n}{f}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{} }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{symbol}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+          \PYG{n}{f}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+      
+      \PYG{n}{f}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{start}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}removeDirectLeftFactorization}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{notTerminal}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{,} \PYG{n}{maxPrefix}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+    \PYG{n}{indexList} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}findPrefixMatches}\PYG{p}{(}
+      \PYG{n}{rightRules}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{],}
+      \PYG{n}{prefix}\PYG{o}{=}\PYG{n}{maxPrefix}\PYG{p}{,}
+    \PYG{p}{)}
+    \PYG{n}{newRightRules} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{n}{lenMaxPrefix} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{maxPrefix}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{indexList}\PYG{p}{:}
+      \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{][}\PYG{n}{i}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{n}{lenMaxPrefix}\PYG{p}{:}
+        \PYG{n}{newRightRules}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{][}\PYG{n}{i}\PYG{p}{][}\PYG{n}{lenMaxPrefix}\PYG{p}{:])}
+      \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{newRightRules}\PYG{o}{.}\PYG{n}{append}\PYG{p}{([}\PYG{l+s+s2}{\PYGZdq{}e\PYGZdq{}}\PYG{p}{])}
+
+    \PYG{n}{rightRules} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{])):}
+      \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{indexList}\PYG{p}{:}
+        \PYG{n}{rightRules}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{][}\PYG{n}{i}\PYG{p}{])}
+
+    \PYG{n}{newNotTerminal} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}findNewNotTerminal}\PYG{p}{(}\PYG{n}{notTerminal}\PYG{p}{)}
+    \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{newNotTerminal}\PYG{p}{]} \PYG{o}{=} \PYG{n}{newRightRules}
+    \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{]} \PYG{o}{=} \PYGZbs{}
+      \PYG{p}{[}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{maxPrefix}\PYG{p}{)} \PYG{o}{+} \PYG{p}{[}\PYG{n}{newNotTerminal}\PYG{p}{]]} \PYG{o}{+} \PYG{n}{rightRules}
+    
+    \PYG{n}{indexNotTerminal} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{index}\PYG{p}{(}\PYG{n}{notTerminal}\PYG{p}{)}
+    \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals} \PYG{o}{=} \PYGZbs{}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[:}\PYG{n}{indexNotTerminal} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{+} \PYG{p}{[}\PYG{n}{newNotTerminal}\PYG{p}{]} \PYG{o}{+} \PYGZbs{}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{indexNotTerminal} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{:]}
+    
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}findNewNotTerminal}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{notTerminal}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{):}
+    \PYG{k}{try}\PYG{p}{:}
+      \PYG{n}{baseNotTerminal} \PYG{o}{=} \PYG{n}{notTerminal}\PYG{p}{[:}\PYG{n}{notTerminal}\PYG{o}{.}\PYG{n}{index}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZsq{}\PYGZdq{}}\PYG{p}{)]}
+    \PYG{k}{except} \PYG{n+ne}{ValueError}\PYG{p}{:}
+      \PYG{n}{baseNotTerminal} \PYG{o}{=} \PYG{n}{notTerminal}
+
+    \PYG{n}{quotationMarkCount} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{k}{for} \PYG{n}{item} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{:}
+      \PYG{k}{if} \PYG{n}{item}\PYG{o}{.}\PYG{n}{find}\PYG{p}{(}\PYG{n}{baseNotTerminal}\PYG{p}{)} \PYG{o}{!=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{:}
+        \PYG{n}{quotationMarkCount} \PYG{o}{+=} \PYG{l+m+mi}{1}
+    
+    \PYG{k}{return} \PYG{n}{notTerminal} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}\PYGZsq{}\PYGZdq{}} \PYG{o}{*} \PYG{n}{quotationMarkCount}
+
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}findPrefixMatches}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{rightRules}\PYG{p}{:} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{]],} \PYG{n}{prefix}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]:}
+    \PYG{n}{indexList} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRules}\PYG{p}{)):}
+      \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}comparePrefixes}\PYG{p}{(}\PYG{n}{rightRules}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{prefix}\PYG{p}{):}
+        \PYG{n}{indexList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}
+    
+    \PYG{k}{return} \PYG{n}{indexList}
+  
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}comparePrefixes}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{rightRule}\PYG{p}{:} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{],} \PYG{n}{prefix}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{bool}\PYG{p}{:}
+    \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{prefix}\PYG{p}{):}
+      \PYG{k}{return} \PYG{k+kc}{False}
+
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{prefix}\PYG{p}{)):}
+      \PYG{k}{if} \PYG{n}{prefix}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{!=} \PYG{n}{rightRule}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]:}
+        \PYG{k}{return} \PYG{k+kc}{False}
+      
+    \PYG{k}{return} \PYG{k+kc}{True}
+
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}replaceProducts}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{notTerminal}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{,} \PYG{n}{replaceableNotTerminal}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+    \PYG{n}{flagReplace} \PYG{o}{=} \PYG{k+kc}{False}
+    \PYG{n}{newRightRules} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{n}{rightRules} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{]}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRules}\PYG{p}{)):}
+      \PYG{k}{if} \PYG{n}{replaceableNotTerminal} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{rightRules}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]:}
+        \PYG{n}{newRightRules}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{rightRules}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])}
+        \PYG{k}{continue}
+      
+      \PYG{n}{flagReplace} \PYG{o}{=} \PYG{k+kc}{True}
+      \PYG{n}{j} \PYG{o}{=} \PYG{n}{rightRules}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{index}\PYG{p}{(}\PYG{n}{replaceableNotTerminal}\PYG{p}{)}
+      \PYG{k}{for} \PYG{n}{substitutedRightRule} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{replaceableNotTerminal}\PYG{p}{]:}
+        \PYG{n}{newRightRule} \PYG{o}{=} \PYG{n}{rightRules}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][:}\PYG{n}{j}\PYG{p}{]}
+        \PYG{k}{if} \PYG{n}{substitutedRightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{!=} \PYG{l+s+s2}{\PYGZdq{}e\PYGZdq{}}\PYG{p}{:}
+          \PYG{n}{newRightRule}\PYG{o}{.}\PYG{n}{extend}\PYG{p}{(}\PYG{n}{substitutedRightRule}\PYG{p}{)}
+        \PYG{n}{newRightRule}\PYG{o}{.}\PYG{n}{extend}\PYG{p}{(}\PYG{n}{rightRules}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{:])}
+        \PYG{n}{newRightRules}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{newRightRule}\PYG{p}{)}
+    
+    \PYG{k}{if} \PYG{n}{flagReplace}\PYG{p}{:}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{]} \PYG{o}{=} \PYG{n}{newRightRules}
+      \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{После замены }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{replaceableNotTerminal}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{: \PYGZdq{}}\PYG{p}{,} \PYG{n}{end}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}printProduct}\PYG{p}{(}\PYG{n}{notTerminal}\PYG{p}{,} \PYG{n}{newRightRules}\PYG{p}{)}
+
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}removeDirectLeftRecursion}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{notTerminal}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{bool}\PYG{p}{:}
+    \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{]}\PYG{o}{.}\PYG{n}{sort}\PYG{p}{(}
+      \PYG{n}{key}\PYG{o}{=}\PYG{k}{lambda} \PYG{n}{rightRule}\PYG{p}{:} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{!=} \PYG{n}{notTerminal}
+    \PYG{p}{)}
+    \PYG{n}{newNotTerminal} \PYG{o}{=} \PYG{n}{notTerminal} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}\PYGZsq{}\PYGZdq{}}
+    \PYG{n}{rightRulesForNewNotTerminal} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{n}{rightRules} \PYG{o}{=} \PYG{p}{[]}
+
+    \PYG{k}{for} \PYG{n}{rightRule} \PYG{o+ow}{in} \PYG{n}{deepcopy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{]):}
+      \PYG{k}{if} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{!=} \PYG{n}{notTerminal}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}e\PYGZdq{}}\PYG{p}{:}
+          \PYG{n}{rightRule} \PYG{o}{=} \PYG{p}{[}\PYG{n}{newNotTerminal}\PYG{p}{]}
+        \PYG{k}{else}\PYG{p}{:}
+          \PYG{n}{rightRule}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{newNotTerminal}\PYG{p}{)}
+        \PYG{n}{rightRules}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)}
+      \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{rightRule} \PYG{o}{=} \PYG{n}{rightRule}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:]}
+        \PYG{n}{rightRule}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{newNotTerminal}\PYG{p}{)}
+        \PYG{n}{rightRulesForNewNotTerminal}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{rightRule}\PYG{p}{)}
+
+    \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRulesForNewNotTerminal}\PYG{p}{):}
+      \PYG{n}{rightRulesForNewNotTerminal}\PYG{o}{.}\PYG{n}{append}\PYG{p}{([}\PYG{l+s+s2}{\PYGZdq{}e\PYGZdq{}}\PYG{p}{])}
+      \PYG{n}{indexNotTerminal} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{o}{.}\PYG{n}{index}\PYG{p}{(}\PYG{n}{notTerminal}\PYG{p}{)}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals} \PYG{o}{=} \PYGZbs{}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[:}\PYG{n}{indexNotTerminal} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{+} \PYG{p}{[}\PYG{n}{newNotTerminal}\PYG{p}{]} \PYG{o}{+} \PYGZbs{}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{notTerminals}\PYG{p}{[}\PYG{n}{indexNotTerminal} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{:]}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{newNotTerminal}\PYG{p}{]} \PYG{o}{=} \PYG{n}{rightRulesForNewNotTerminal}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{]} \PYG{o}{=} \PYG{n}{rightRules}
+
+      \PYG{n}{removedFlag} \PYG{o}{=} \PYG{k+kc}{True}
+    \PYG{k}{else}\PYG{p}{:}
+      \PYG{n}{removedFlag} \PYG{o}{=} \PYG{k+kc}{False}
+
+    \PYG{k}{return} \PYG{n}{removedFlag}
+  
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}printProduct}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{notTerminal}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{,} \PYG{n}{rightRules}\PYG{p}{:} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{]]):}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{notTerminal}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ \PYGZhy{}\PYGZgt{} \PYGZdq{}}\PYG{p}{,} \PYG{n}{end}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rightRules}\PYG{p}{)):}
+      \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{} | \PYGZsq{}}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{!=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{l+s+si}{\PYGZcb{}\PYGZob{}}\PYG{n}{Grammar}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}joinListWithSymbol}\PYG{p}{(}\PYG{n}{rightRules}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{} \PYGZsq{}}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{end}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{()}
+
+  \PYG{n+nd}{@staticmethod}
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}joinListWithSymbol}\PYG{p}{(}\PYG{n}{arr}\PYG{p}{:} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{],} \PYG{n}{symbol}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{str}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{reduce}\PYG{p}{(}\PYG{k}{lambda} \PYG{n}{elemPrev}\PYG{p}{,} \PYG{n}{elem}\PYG{p}{:} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{elemPrev}\PYG{l+s+si}{\PYGZcb{}\PYGZob{}}\PYG{n}{symbol}\PYG{l+s+si}{\PYGZcb{}\PYGZob{}}\PYG{n}{elem}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{arr}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{reedGrammarFromFile}\PYG{p}{(}\PYG{n}{fileName}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Grammar}\PYG{p}{:}
+  \PYG{k}{with} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{fileName}\PYG{p}{)} \PYG{k}{as} \PYG{n}{f}\PYG{p}{:}
+    \PYG{n}{lines} \PYG{o}{=} \PYG{p}{[}\PYG{n}{line}\PYG{p}{[:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{k}{for} \PYG{n}{line} \PYG{o+ow}{in} \PYG{n}{f}\PYG{o}{.}\PYG{n}{readlines}\PYG{p}{()]}
+
+  \PYG{n}{notTerminals} \PYG{o}{=} \PYG{n}{lines}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)}
+  \PYG{n}{terminals} \PYG{o}{=} \PYG{n}{lines}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)}
+  \PYG{n}{start} \PYG{o}{=} \PYG{n}{lines}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+  \PYG{n}{rules} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+  \PYG{k}{for} \PYG{n}{notTerminal} \PYG{o+ow}{in} \PYG{n}{notTerminals}\PYG{p}{:}
+    \PYG{n}{rules}\PYG{p}{[}\PYG{n}{notTerminal}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[]}
+
+  \PYG{k}{for} \PYG{n}{rule} \PYG{o+ow}{in} \PYG{n}{lines}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]:}
+    \PYG{n}{rule} \PYG{o}{=} \PYG{n}{rule}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{rules}\PYG{p}{[}\PYG{n}{rule}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{rule}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{:])}
+
+  \PYG{k}{return} \PYG{n}{Grammar}\PYG{p}{(}
+    \PYG{n}{notTerminals}\PYG{o}{=}\PYG{n}{notTerminals}\PYG{p}{,} 
+    \PYG{n}{terminals}\PYG{o}{=}\PYG{n}{terminals}\PYG{p}{,}
+    \PYG{n}{rules}\PYG{o}{=}\PYG{n}{rules}\PYG{p}{,}
+    \PYG{n}{start}\PYG{o}{=}\PYG{n}{start}\PYG{p}{,}
+  \PYG{p}{)}
+\end{Verbatim}

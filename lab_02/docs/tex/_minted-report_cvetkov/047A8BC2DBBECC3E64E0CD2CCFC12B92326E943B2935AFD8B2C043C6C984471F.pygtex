@@ -1,0 +1,130 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+m+mf}{1.}\PYG{+w}{ }Индивидуальная\PYG{+w}{ }матрица\PYG{+w}{ }по\PYG{+w}{ }варианту\PYG{+w}{ }\PYG{l+m+mi}{20}\PYG{p}{:}
+\PYG{+w}{   }\PYG{l+m+mi}{4}\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{8}\PYG{+w}{   }\PYG{l+m+mi}{7}\PYG{+w}{   }\PYG{l+m+mi}{5}
+\PYG{+w}{   }\PYG{l+m+mi}{4}\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{7}\PYG{+w}{   }\PYG{l+m+mi}{8}\PYG{+w}{   }\PYG{l+m+mi}{3}
+\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{7}\PYG{+w}{   }\PYG{l+m+mi}{4}
+\PYG{+w}{   }\PYG{l+m+mi}{9}\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{3}\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{9}
+\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{3}\PYG{+w}{   }\PYG{l+m+mi}{4}\PYG{+w}{   }\PYG{l+m+mi}{6}\PYG{+w}{   }\PYG{l+m+mi}{1}
+
+\PYG{l+m+mf}{1.1}\PYG{p}{.}\PYG{+w}{ }Найденный\PYG{+w}{ }максимальный\PYG{+w}{ }элемент\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{9}
+
+\PYG{l+m+mf}{1.2}\PYG{p}{.}\PYG{+w}{ }Матрица\PYG{+w}{ }после\PYG{+w}{ }приведения\PYG{+w}{ }к\PYG{+w}{ }задаче\PYG{+w}{ }минимизации\PYG{p}{:}
+\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{7}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{4}
+\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{4}\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{6}
+\PYG{+w}{   }\PYG{l+m+mi}{7}\PYG{+w}{   }\PYG{l+m+mi}{7}\PYG{+w}{   }\PYG{l+m+mi}{8}\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{5}
+\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{4}\PYG{+w}{   }\PYG{l+m+mi}{6}\PYG{+w}{   }\PYG{l+m+mi}{7}\PYG{+w}{   }\PYG{l+m+mi}{0}
+\PYG{+w}{   }\PYG{l+m+mi}{4}\PYG{+w}{   }\PYG{l+m+mi}{6}\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{3}\PYG{+w}{   }\PYG{l+m+mi}{8}
+
+\PYG{l+m+mf}{2.1}\PYG{p}{.}\PYG{+w}{ }Наименьшие\PYG{+w}{ }элементы\PYG{+w}{ }по\PYG{+w}{ }столбцам\PYG{p}{:}
+\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{4}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{0}
+
+\PYG{l+m+mf}{2.2}\PYG{p}{.}\PYG{+w}{ }Матрица\PYG{+w}{ }с\PYG{+w}{ }вычитенными\PYG{+w}{ }наименьшими\PYG{+w}{ }элементами\PYG{+w}{ }по\PYG{+w}{ }столбцам\PYG{p}{:}
+\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{3}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{4}
+\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{6}
+\PYG{+w}{   }\PYG{l+m+mi}{7}\PYG{+w}{   }\PYG{l+m+mi}{3}\PYG{+w}{   }\PYG{l+m+mi}{7}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{5}
+\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{6}\PYG{+w}{   }\PYG{l+m+mi}{0}
+\PYG{+w}{   }\PYG{l+m+mi}{4}\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{4}\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{8}
+
+\PYG{l+m+mf}{3.1}\PYG{p}{.}\PYG{+w}{ }Наименьшие\PYG{+w}{ }элементы\PYG{+w}{ }по\PYG{+w}{ }строкам\PYG{p}{:}
+\PYG{+w}{   }\PYG{l+m+mi}{0}
+\PYG{+w}{   }\PYG{l+m+mi}{0}
+\PYG{+w}{   }\PYG{l+m+mi}{1}
+\PYG{+w}{   }\PYG{l+m+mi}{0}
+\PYG{+w}{   }\PYG{l+m+mi}{2}
+
+\PYG{l+m+mf}{3.2}\PYG{p}{.}\PYG{+w}{ }Матрица\PYG{+w}{ }с\PYG{+w}{ }вычитенными\PYG{+w}{ }наименьшими\PYG{+w}{ }элементами\PYG{+w}{ }по\PYG{+w}{ }строкам\PYG{p}{:}
+\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{3}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{4}
+\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{6}
+\PYG{+w}{   }\PYG{l+m+mi}{6}\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{6}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{4}
+\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{5}\PYG{+w}{   }\PYG{l+m+mi}{6}\PYG{+w}{   }\PYG{l+m+mi}{0}
+\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{2}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{6}
+
+\PYG{l+m+mf}{4.}\PYG{+w}{ }Начальная\PYG{+w}{ }СНН\PYG{p}{:}
+
+\PYG{+w}{        }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{6}
+\PYG{+w}{        }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}
+\PYG{+w}{        }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{6}
+
+\PYG{l+m+mf}{5.}\PYG{+w}{ }Число\PYG{+w}{ }нулей\PYG{+w}{ }в\PYG{+w}{ }построенной\PYG{+w}{ }СНН\PYG{p}{:}\PYG{+w}{ }\PYG{n}{k}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{4}
+
+\PYG{o}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}\PYG{+w}{ }Итерация\PYG{+w}{ }№\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{o}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+m+mf}{6.}\PYG{+w}{ }Результат\PYG{+w}{ }выделения\PYG{+w}{ }столбцов\PYG{p}{,}\PYG{+w}{ }в\PYG{+w}{ }которых\PYG{+w}{ }стоит\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{p}{:}
+\PYG{+w}{        }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{6}
+\PYG{+w}{        }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}
+\PYG{+w}{        }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{6}
+\PYG{+w}{        }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}
+
+\PYG{l+m+mf}{7.}\PYG{+w}{ }Поиск\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }среди\PYG{+w}{ }невыделенных\PYG{+w}{ }элементов
+
+\PYG{l+m+mf}{8.}\PYG{+w}{ }Матрица\PYG{+w}{ }с\PYG{+w}{ }найденным\PYG{+w}{ }\PYG{l+m+mi}{0}`
+
+\PYG{+w}{        }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{6}
+\PYG{+w}{        }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{\PYGZsq{}}
+\PYG{+w}{        }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{6}
+\PYG{+w}{        }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}
+
+\PYG{l+m+mf}{8.}\PYG{+w}{ }В\PYG{+w}{ }одной\PYG{+w}{ }строке\PYG{+w}{ }с\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{o}{\PYGZhy{}}штрих\PYG{+w}{ }есть\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }было\PYG{+w}{ }переброшено\PYG{+w}{ }выделение\PYG{p}{:}
+\PYG{+w}{        }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{6}
+\PYG{+w}{        }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{4}
+\PYG{o}{+}\PYG{+w}{       }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{5}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{\PYGZsq{}}
+\PYG{+w}{        }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{6}
+\PYG{+w}{                        }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}
+
+\PYG{l+m+mf}{7.}\PYG{+w}{ }Поиск\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }среди\PYG{+w}{ }невыделенных\PYG{+w}{ }элементов
+
+\PYG{l+m+mf}{7.1}\PYG{p}{.}\PYG{+w}{ }Преобразование\PYG{+w}{ }матрицы\PYG{p}{,}\PYG{+w}{ }так\PYG{+w}{ }как\PYG{+w}{ }в\PYG{+w}{ }неотмеченных\PYG{+w}{ }столбцах\PYG{+w}{ }нет\PYG{+w}{ }нулей\PYG{p}{:}
+\PYG{+w}{        }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{2}
+\PYG{+w}{        }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{4}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{2}
+\PYG{o}{+}\PYG{+w}{       }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{7}\PYG{+w}{               }\PYG{l+m+mi}{8}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{\PYGZsq{}}
+\PYG{+w}{        }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{4}
+\PYG{+w}{                        }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}
+
+\PYG{l+m+mf}{8.}\PYG{+w}{ }Матрица\PYG{+w}{ }с\PYG{+w}{ }найденным\PYG{+w}{ }\PYG{l+m+mi}{0}`
+
+\PYG{+w}{        }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{2}
+\PYG{+w}{        }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{4}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{2}
+\PYG{o}{+}\PYG{+w}{       }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{7}\PYG{+w}{               }\PYG{l+m+mi}{8}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{\PYGZsq{}}
+\PYG{+w}{        }\PYG{l+m+mi}{0}\PYG{o}{\PYGZsq{}}\PYG{+w}{              }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{4}
+\PYG{+w}{                        }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}\PYG{+w}{               }\PYG{o}{+}
+
+\PYG{l+m+mf}{10.}\PYG{+w}{ }\PYG{n}{L}\PYG{o}{\PYGZhy{}}цепочка\PYG{p}{:}
+\PYG{p}{[}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{]}
+
+\PYG{l+m+mf}{11.}\PYG{+w}{ }Текущая\PYG{+w}{ }СНН\PYG{p}{:}
+
+\PYG{+w}{        }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{2}
+\PYG{+w}{        }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{4}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{2}
+\PYG{+w}{        }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{7}\PYG{+w}{               }\PYG{l+m+mi}{8}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}
+\PYG{+w}{        }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{4}
+
+\PYG{n}{Текущее}\PYG{+w}{ }\PYG{l+s}{k}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{5}
+\PYG{o}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+m+mf}{12.}\PYG{+w}{ }Полученная\PYG{+w}{ }СНН\PYG{p}{:}
+
+\PYG{+w}{        }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{2}
+\PYG{+w}{        }\PYG{l+m+mi}{3}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{1}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{4}
+\PYG{+w}{        }\PYG{l+m+mi}{4}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{6}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{2}
+\PYG{+w}{        }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{7}\PYG{+w}{               }\PYG{l+m+mi}{8}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{o}{*}
+\PYG{+w}{        }\PYG{l+m+mi}{0}\PYG{o}{*}\PYG{+w}{              }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{2}\PYG{+w}{               }\PYG{l+m+mi}{0}\PYG{+w}{               }\PYG{l+m+mi}{4}
+
+\PYG{l+m+mf}{13.}\PYG{+w}{ }\PYG{n}{X}\PYG{+w}{ }\PYG{n}{opt}\PYG{+w}{ }\PYG{p}{=}
+\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}
+\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}
+\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{0}
+\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{1}
+\PYG{+w}{   }\PYG{l+m+mi}{1}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}\PYG{+w}{   }\PYG{l+m+mi}{0}
+
+\PYG{l+m+mf}{14.}\PYG{+w}{ }\PYG{n}{f}\PYG{+w}{ }\PYG{n}{opt}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mi}{34}
+\end{Verbatim}

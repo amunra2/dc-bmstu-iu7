@@ -1,0 +1,99 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{subprocess}
+
+\PYG{k+kn}{from} \PYG{n+nn}{grammar} \PYG{k+kn}{import} \PYG{n}{Grammar}\PYG{p}{,} \PYG{n}{reedGrammarFromFile}
+
+
+\PYG{n}{SIZE\PYGZus{}MENU} \PYG{o}{=} \PYG{l+m+mi}{5}
+\PYG{n}{OUTPUT\PYGZus{}FILE\PYGZus{}NAME} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}./data/result.txt\PYGZdq{}}
+\PYG{n}{MENU} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+s2}{  }\PYG{l+s+se}{\PYGZbs{}t}\PYG{l+s+s2}{Меню}\PYG{l+s+se}{\PYGZbs{}n}
+\PYG{l+s+s2}{  1.  Вывести исходную грамматику}
+\PYG{l+s+s2}{  2.  Грамматика после устранения левой рекурсии}
+\PYG{l+s+s2}{  3.  Грамматика после устранения левой факторизации}
+\PYG{l+s+s2}{  4.  Грамматика после устранения левой рекурсии и левой факторизации}
+\PYG{l+s+s2}{  5.  Преобразование КС\PYGZhy{}грамматики к нормальной форме Хомского}
+
+\PYG{l+s+s2}{  0.  Выход}\PYG{l+s+se}{\PYGZbs{}n}
+\PYG{l+s+s2}{  Выбор: \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+
+\PYG{k}{def} \PYG{n+nf}{inputOption}\PYG{p}{(}\PYG{n}{minOptions}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{,} \PYG{n}{maxOptions}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{,} \PYG{n}{msg}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{):}
+  \PYG{k}{try}\PYG{p}{:}
+    \PYG{n}{option} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n+nb}{input}\PYG{p}{(}\PYG{n}{msg}\PYG{p}{))}
+  \PYG{k}{except}\PYG{p}{:}
+    \PYG{n}{option} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+  \PYG{k}{else}\PYG{p}{:}
+    \PYG{k}{if} \PYG{n}{option} \PYG{o}{\PYGZlt{}} \PYG{n}{minOptions} \PYG{o+ow}{or} \PYG{n}{option} \PYG{o}{\PYGZgt{}} \PYG{n}{maxOptions}\PYG{p}{:}
+      \PYG{n}{option} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+  
+  \PYG{k}{if} \PYG{n}{option} \PYG{o}{==} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{:}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Ожидался ввод целого числа от }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{minOptions}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ до }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{maxOptions}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+  \PYG{k}{return} \PYG{n}{option}
+
+
+\PYG{k}{def} \PYG{n+nf}{chooseInputFile}\PYG{p}{()} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{str}\PYG{p}{:}
+  \PYG{k}{with} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}temp.txt\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}w\PYGZdq{}}\PYG{p}{)} \PYG{k}{as} \PYG{n}{f}\PYG{p}{:}
+    \PYG{n}{subprocess}\PYG{o}{.}\PYG{n}{run}\PYG{p}{([}\PYG{l+s+s2}{\PYGZdq{}ls\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}./data\PYGZdq{}}\PYG{p}{],} \PYG{n}{stdout}\PYG{o}{=}\PYG{n}{f}\PYG{p}{)}
+
+  \PYG{k}{with} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}temp.txt\PYGZdq{}}\PYG{p}{)} \PYG{k}{as} \PYG{n}{f}\PYG{p}{:}
+    \PYG{n}{fileNames} \PYG{o}{=} \PYG{p}{[}\PYG{n}{line}\PYG{p}{[:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{k}{for} \PYG{n}{line} \PYG{o+ow}{in} \PYG{n}{f}\PYG{o}{.}\PYG{n}{readlines}\PYG{p}{()]}
+
+  \PYG{n}{subprocess}\PYG{o}{.}\PYG{n}{run}\PYG{p}{([}\PYG{l+s+s2}{\PYGZdq{}rm\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}temp.txt\PYGZdq{}}\PYG{p}{])}
+
+  \PYG{n}{msg} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n\PYGZbs{}t}\PYG{l+s+s2}{Входные файлы:}\PYG{l+s+se}{\PYGZbs{}n\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}
+  \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{fileNames}\PYG{p}{)):}
+    \PYG{n}{msg} \PYG{o}{+=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}  }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{i}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{.  }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{fileNames}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{;}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}
+  \PYG{n}{msg} \PYG{o}{+=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{  Выбор: \PYGZdq{}}
+
+  \PYG{n}{option} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+  \PYG{k}{while} \PYG{n}{option} \PYG{o}{==} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{:}
+    \PYG{n}{option} \PYG{o}{=} \PYG{n}{option} \PYG{o}{=} \PYG{n}{inputOption}\PYG{p}{(}
+      \PYG{n}{minOptions}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,}
+      \PYG{n}{maxOptions}\PYG{o}{=}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{fileNames}\PYG{p}{),} 
+      \PYG{n}{msg}\PYG{o}{=}\PYG{n}{msg}\PYG{p}{,}
+    \PYG{p}{)}
+  
+  \PYG{k}{return} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}./data/}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{fileNames}\PYG{p}{[}\PYG{n}{option}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}
+
+
+\PYG{k}{def} \PYG{n+nf}{main}\PYG{p}{():}
+  \PYG{n}{inputFile} \PYG{o}{=} \PYG{n}{chooseInputFile}\PYG{p}{()}
+  \PYG{n}{option} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+  \PYG{k}{while} \PYG{n}{option} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{:}
+    \PYG{n}{option} \PYG{o}{=} \PYG{n}{inputOption}\PYG{p}{(}
+      \PYG{n}{minOptions}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}
+      \PYG{n}{maxOptions}\PYG{o}{=}\PYG{n}{SIZE\PYGZus{}MENU}\PYG{p}{,} 
+      \PYG{n}{msg}\PYG{o}{=}\PYG{n}{MENU}\PYG{p}{,}
+    \PYG{p}{)}
+    \PYG{k}{match} \PYG{n}{option}\PYG{p}{:}
+      \PYG{k}{case} \PYG{l+m+mi}{1}\PYG{p}{:}
+        \PYG{n}{grammar}\PYG{p}{:} \PYG{n}{Grammar} \PYG{o}{=} \PYG{n}{reedGrammarFromFile}\PYG{p}{(}\PYG{n}{inputFile}\PYG{p}{)}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{printGrammar}\PYG{p}{()}
+      \PYG{k}{case} \PYG{l+m+mi}{2}\PYG{p}{:}
+        \PYG{n}{grammar}\PYG{p}{:} \PYG{n}{Grammar} \PYG{o}{=} \PYG{n}{reedGrammarFromFile}\PYG{p}{(}\PYG{n}{inputFile}\PYG{p}{)}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{removeLeftRecursion}\PYG{p}{()}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{printGrammar}\PYG{p}{()}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{createFileFromGrammar}\PYG{p}{(}\PYG{n}{OUTPUT\PYGZus{}FILE\PYGZus{}NAME}\PYG{p}{)}
+      \PYG{k}{case} \PYG{l+m+mi}{3}\PYG{p}{:}
+        \PYG{n}{grammar}\PYG{p}{:} \PYG{n}{Grammar} \PYG{o}{=} \PYG{n}{reedGrammarFromFile}\PYG{p}{(}\PYG{n}{inputFile}\PYG{p}{)}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{removeLeftFactorization}\PYG{p}{()}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{printGrammar}\PYG{p}{()}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{createFileFromGrammar}\PYG{p}{(}\PYG{n}{OUTPUT\PYGZus{}FILE\PYGZus{}NAME}\PYG{p}{)}
+      \PYG{k}{case} \PYG{l+m+mi}{4}\PYG{p}{:}
+        \PYG{n}{grammar}\PYG{p}{:} \PYG{n}{Grammar} \PYG{o}{=} \PYG{n}{reedGrammarFromFile}\PYG{p}{(}\PYG{n}{inputFile}\PYG{p}{)}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{removeLeftRecursion}\PYG{p}{()}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{removeLeftFactorization}\PYG{p}{()}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{printGrammar}\PYG{p}{()}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{createFileFromGrammar}\PYG{p}{(}\PYG{n}{OUTPUT\PYGZus{}FILE\PYGZus{}NAME}\PYG{p}{)}
+      \PYG{k}{case} \PYG{l+m+mi}{5}\PYG{p}{:}
+        \PYG{n}{grammar}\PYG{p}{:} \PYG{n}{Grammar} \PYG{o}{=} \PYG{n}{reedGrammarFromFile}\PYG{p}{(}\PYG{n}{inputFile}\PYG{p}{)}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{convertToChomskyForm}\PYG{p}{()}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{printGrammar}\PYG{p}{()}
+        \PYG{n}{grammar}\PYG{o}{.}\PYG{n}{createFileFromGrammar}\PYG{p}{(}\PYG{n}{OUTPUT\PYGZus{}FILE\PYGZus{}NAME}\PYG{p}{)}
+
+
+\PYG{k}{if} \PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZsq{}}\PYG{p}{:}
+  \PYG{n}{main}\PYG{p}{()}
+\end{Verbatim}

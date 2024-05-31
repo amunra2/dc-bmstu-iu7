@@ -1,0 +1,58 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{============}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}начальные\PYG{+w}{ }данные\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{  }\PYG{l+m+mi}{1}\PYG{p}{))}\PYG{+w}{ }\PYG{o}{============}
+\PYG{+w}{    }\PYG{n}{x0}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.0000000000}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x0}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2907626540}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+\PYG{o}{======================}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{  }\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{====================}\PYG{p}{=}
+\PYG{+w}{    }\PYG{n}{x1}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.7500000000}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.3009111910}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+\PYG{o}{======================}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{  }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{====================}\PYG{p}{=}
+\PYG{+w}{    }\PYG{n}{x1}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.8125000000}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.2326751264}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+\PYG{o}{======================}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{  }\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{====================}\PYG{p}{=}
+\PYG{+w}{    }\PYG{n}{x1}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.8750000000}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.1335730544}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+\PYG{o}{======================}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{  }\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{====================}\PYG{p}{=}
+\PYG{+w}{    }\PYG{n}{x1}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.9375000000}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.0182475111}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+\PYG{o}{======================}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{  }\PYG{l+m+mi}{6}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{====================}\PYG{p}{=}
+\PYG{+w}{    }\PYG{n}{x1}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.0000000000}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2907626540}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+\PYG{o}{======================}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{  }\PYG{l+m+mi}{7}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{====================}\PYG{p}{=}
+\PYG{+w}{    }\PYG{n}{x1}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.9843750000}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2023810002}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+\PYG{o}{======================}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{  }\PYG{l+m+mi}{8}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{====================}\PYG{p}{=}
+\PYG{+w}{    }\PYG{n}{x1}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.9882812500}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2226853977}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+\PYG{o}{======================}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{  }\PYG{l+m+mi}{9}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{====================}\PYG{p}{=}
+\PYG{+w}{    }\PYG{n}{x1}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.9921875000}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2441008863}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+\PYG{o}{======================}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{====================}\PYG{p}{=}
+\PYG{+w}{    }\PYG{n}{x1}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.9960937500}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2667467057}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+\PYG{o}{======================}\PYG{+w}{ }ОТЛАДКА\PYG{+w}{ }\PYG{p}{(}шаг\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{11}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{====================}\PYG{p}{=}
+\PYG{+w}{    }\PYG{n}{x1}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.0000000000}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2907626540}\PYG{p}{;}
+\PYG{o}{==============================================================}
+
+
+Ответ\PYG{p}{:}\PYG{+w}{   }\PYG{n}{x}\PYG{o}{*}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.9960937500}\PYG{p}{;}\PYG{+w}{   }\PYG{n}{f}\PYG{p}{(}\PYG{n}{x}\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2667467057}\PYG{p}{.}
+\end{Verbatim}

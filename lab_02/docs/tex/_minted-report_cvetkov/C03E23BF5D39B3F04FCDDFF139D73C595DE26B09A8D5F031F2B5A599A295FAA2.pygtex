@@ -1,0 +1,269 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+\PYG{n}{os}\PYG{o}{.}\PYG{n}{environ}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}PATH\PYGZdq{}}\PYG{p}{]} \PYG{o}{+=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{pathsep} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}C:/Program Files/Graphviz/bin/\PYGZsq{}}
+
+\PYG{k+kn}{from} \PYG{n+nn}{graphviz} \PYG{k+kn}{import} \PYG{n}{Digraph}
+\PYG{k+kn}{from} \PYG{n+nn}{typing} \PYG{k+kn}{import} \PYG{n}{Dict}\PYG{p}{,} \PYG{n}{List}\PYG{p}{,} \PYG{n}{Set}
+\PYG{k+kn}{import} \PYG{n+nn}{copy}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+
+\PYG{n}{FDA\PYGZus{}table} \PYG{o}{=} \PYG{n}{Dict}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{,} \PYG{n}{List}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]]}
+\PYG{n}{NFDA\PYGZus{}table} \PYG{o}{=} \PYG{n}{Dict}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{,} \PYG{n}{List}\PYG{p}{[}\PYG{n}{List}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]]]}
+\PYG{n}{EPSILON} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}e\PYGZsq{}}
+
+
+\PYG{k}{class} \PYG{n+nc}{CharCantBeAccepted}\PYG{p}{(}\PYG{n+ne}{Exception}\PYG{p}{):}
+    \PYG{k}{pass}
+
+
+\PYG{k}{class} \PYG{n+nc}{Automata}\PYG{p}{:}
+    \PYG{k}{def} \PYG{n+nf}{accepts}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{input\PYGZus{}string}\PYG{p}{):}
+        \PYG{k}{raise} \PYG{n+ne}{NotImplementedError}\PYG{p}{()}
+
+    \PYG{k}{def} \PYG{n+nf}{num\PYGZus{}of\PYGZus{}states}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{raise} \PYG{n+ne}{NotImplementedError}\PYG{p}{()}
+
+    \PYG{k}{def} \PYG{n+nf}{getAlphabet}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{raise} \PYG{n+ne}{NotImplementedError}\PYG{p}{()}
+    
+    \PYG{k}{def} \PYG{n+nf}{show\PYGZus{}automata}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{raise} \PYG{n+ne}{NotImplementedError}\PYG{p}{()}
+
+
+\PYG{k}{class} \PYG{n+nc}{NFA}\PYG{p}{(}\PYG{n}{Automata}\PYG{p}{):}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{table}\PYG{p}{:} \PYG{n}{NFDA\PYGZus{}table}\PYG{p}{,} \PYG{n}{final\PYGZus{}states}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table} \PYG{o}{=} \PYG{n}{table}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{final\PYGZus{}states} \PYG{o}{=} \PYG{n}{final\PYGZus{}states}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{states} \PYG{o}{=} \PYG{k+kc}{None}
+
+    \PYG{k}{def} \PYG{n+nf}{next\PYGZus{}state}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{state}\PYG{p}{,} \PYG{n}{char}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n}{char} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{p}{:}
+            \PYG{k}{raise} \PYG{n}{CharCantBeAccepted}
+        \PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{p}{[}\PYG{n}{char}\PYG{p}{][}\PYG{n}{state}\PYG{p}{]}
+
+    \PYG{k}{def} \PYG{n+nf}{forward}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{old\PYGZus{}state}\PYG{p}{,} \PYG{n}{char}\PYG{p}{):}
+        \PYG{n}{new\PYGZus{}state} \PYG{o}{=} \PYG{n+nb}{set}\PYG{p}{()}
+        \PYG{k}{for} \PYG{n}{state} \PYG{o+ow}{in} \PYG{n}{old\PYGZus{}state}\PYG{p}{:}
+            \PYG{n}{new\PYGZus{}state}\PYG{o}{.}\PYG{n}{update}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{next\PYGZus{}state}\PYG{p}{(}\PYG{n}{state}\PYG{p}{,} \PYG{n}{char}\PYG{p}{))}
+            \PYG{k}{if} \PYG{n}{EPSILON} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{():}
+                \PYG{n}{new\PYGZus{}state}\PYG{o}{.}\PYG{n}{update}\PYG{p}{(}\PYG{n+nb}{sum}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{eps\PYGZus{}close}\PYG{p}{(}\PYG{n}{s}\PYG{p}{)} \PYG{k}{for} \PYG{n}{s} \PYG{o+ow}{in} \PYG{n}{new\PYGZus{}state}\PYG{p}{],} \PYG{p}{[]))}
+        \PYG{k}{return} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{new\PYGZus{}state}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{add\PYGZus{}transition}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{start}\PYG{p}{,} \PYG{n}{char}\PYG{p}{,} \PYG{n}{finish}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n}{char} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{p}{[}\PYG{n}{char}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[]} \PYG{k}{for} \PYG{n}{\PYGZus{}} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{num\PYGZus{}of\PYGZus{}states}\PYG{p}{())]}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{p}{[}\PYG{n}{char}\PYG{p}{][}\PYG{n}{start}\PYG{p}{]}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{finish}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{accepts}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{input\PYGZus{}string}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{states} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{eps\PYGZus{}close}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+        \PYG{k}{try}\PYG{p}{:}
+            \PYG{k}{for} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{input\PYGZus{}string}\PYG{p}{:}
+                \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{states} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{forward}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{states}\PYG{p}{,} \PYG{n}{c}\PYG{p}{)}
+            \PYG{k}{for} \PYG{n}{state} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{states}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n+nb}{set}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{eps\PYGZus{}close}\PYG{p}{(}\PYG{n}{state}\PYG{p}{))}\PYG{o}{.}\PYG{n}{intersection}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{final\PYGZus{}states}\PYG{p}{):}
+                    \PYG{k}{return} \PYG{k+kc}{True}
+            \PYG{k}{return} \PYG{k+kc}{False}
+        \PYG{k}{except} \PYG{n}{CharCantBeAccepted}\PYG{p}{:}
+            \PYG{k}{return} \PYG{k+kc}{False}
+
+    \PYG{k}{def} \PYG{n+nf}{num\PYGZus{}of\PYGZus{}states}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{values}\PYG{p}{())[}\PYG{l+m+mi}{0}\PYG{p}{])}
+
+    \PYG{k}{def} \PYG{n+nf}{copy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n}{new\PYGZus{}table} \PYG{o}{=} \PYG{n}{copy}\PYG{o}{.}\PYG{n}{deepcopy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{p}{)}
+        \PYG{n}{new\PYGZus{}final} \PYG{o}{=} \PYG{n}{copy}\PYG{o}{.}\PYG{n}{deepcopy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{final\PYGZus{}states}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{NFA}\PYG{p}{(}\PYG{n}{new\PYGZus{}table}\PYG{p}{,} \PYG{n}{new\PYGZus{}final}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{show\PYGZus{}automata}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n+nb}{type}\PYG{p}{):}
+        \PYG{n}{dot} \PYG{o}{=} \PYG{n}{Digraph}\PYG{p}{()}
+        
+        \PYG{k}{for} \PYG{n}{char}\PYG{p}{,} \PYG{n}{state\PYGZus{}list} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{items}\PYG{p}{():}
+            \PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{s} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{state\PYGZus{}list}\PYG{p}{):}
+                \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{s}\PYG{p}{)} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{:}
+                    \PYG{k}{for} \PYG{n}{t} \PYG{o+ow}{in} \PYG{n}{s}\PYG{p}{:}
+                        \PYG{n}{dot}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{(}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i}\PYG{p}{),} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{t}\PYG{p}{),} \PYG{n}{char}\PYG{p}{)}
+
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{final\PYGZus{}states}\PYG{p}{:}
+            \PYG{n}{dot}\PYG{o}{.}\PYG{n}{node}\PYG{p}{(}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i}\PYG{p}{),}\PYG{n}{shape}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}cds\PYGZsq{}}\PYG{p}{)}
+        
+        \PYG{n}{dot}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}START\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}0\PYGZsq{}}\PYG{p}{)}
+        
+        \PYG{k}{if} \PYG{n+nb}{type} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{:}
+            \PYG{n}{dot}\PYG{o}{.}\PYG{n}{render}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}НКА\PYGZsq{}}\PYG{p}{,} \PYG{n}{view}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n+nb}{type} \PYG{o}{==} \PYG{l+m+mi}{2}\PYG{p}{:}
+            \PYG{n}{dot}\PYG{o}{.}\PYG{n}{render}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}ДКА\PYGZsq{}}\PYG{p}{,} \PYG{n}{view}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n+nb}{type} \PYG{o}{==} \PYG{l+m+mi}{3}\PYG{p}{:}
+            \PYG{n}{dot}\PYG{o}{.}\PYG{n}{render}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}МДКА\PYGZsq{}}\PYG{p}{,} \PYG{n}{view}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+
+
+    \PYG{k}{def} \PYG{n+nf}{eps\PYGZus{}close}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{state}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{List}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]:}
+        \PYG{k}{if} \PYG{n}{EPSILON} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{():}
+            \PYG{k}{return} \PYG{p}{[}\PYG{n}{state}\PYG{p}{]}
+        \PYG{n}{visited} \PYG{o}{=} \PYG{p}{[]}
+        \PYG{n}{active} \PYG{o}{=} \PYG{p}{[}\PYG{n}{state}\PYG{p}{]}
+        \PYG{k}{while} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{active}\PYG{p}{)} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{:}
+            \PYG{n}{new\PYGZus{}active} \PYG{o}{=} \PYG{p}{[]}
+            \PYG{k}{for} \PYG{n}{s} \PYG{o+ow}{in} \PYG{n}{active}\PYG{p}{:}
+                \PYG{n}{new\PYGZus{}active}\PYG{o}{.}\PYG{n}{extend}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{p}{[}\PYG{n}{EPSILON}\PYG{p}{][}\PYG{n}{s}\PYG{p}{])}
+            \PYG{n}{visited} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n+nb}{set}\PYG{p}{(}\PYG{n}{visited} \PYG{o}{+} \PYG{n}{active}\PYG{p}{))}
+            \PYG{n}{active} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n+nb}{set}\PYG{p}{(}\PYG{n}{new\PYGZus{}active}\PYG{p}{)}\PYG{o}{.}\PYG{n}{difference}\PYG{p}{(}\PYG{n}{visited}\PYG{p}{))}
+        \PYG{k}{return} \PYG{n}{visited}
+
+    \PYG{k}{def} \PYG{n+nf}{getAlphabet}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{())}
+
+\PYG{k}{class} \PYG{n+nc}{DFA}\PYG{p}{(}\PYG{n}{Automata}\PYG{p}{):}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{table}\PYG{p}{:} \PYG{n}{FDA\PYGZus{}table}\PYG{p}{,} \PYG{n}{final\PYGZus{}states}\PYG{p}{:} \PYG{n}{List}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]):}
+        \PYG{c+c1}{\PYGZsh{} Q = states}
+        \PYG{c+c1}{\PYGZsh{} A = alhabet}
+        \PYG{c+c1}{\PYGZsh{} T = table}
+        \PYG{c+c1}{\PYGZsh{} S = start\PYGZus{}states}
+        \PYG{c+c1}{\PYGZsh{} F = final\PYGZus{}state}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table} \PYG{o}{=} \PYG{n}{table}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{final\PYGZus{}states} \PYG{o}{=} \PYG{n}{final\PYGZus{}states}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy} \PYG{o}{=} \PYG{n}{NFA}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}getNFATableFromDFATable}\PYG{p}{(),} \PYG{n}{final\PYGZus{}states}\PYG{p}{)}
+
+        \PYG{n}{num\PYGZus{}of\PYGZus{}states} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{num\PYGZus{}of\PYGZus{}states}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{states} \PYG{o}{=} \PYG{p}{[}\PYG{n}{i} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{num\PYGZus{}of\PYGZus{}states}\PYG{p}{)]}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{start\PYGZus{}states} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}getStartStates}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{states}\PYG{p}{[:])}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{alphabet} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{getAlphabet}\PYG{p}{()}
+    
+    \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}getNFATableFromDFATable}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n}{proxy\PYGZus{}table} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+
+        \PYG{k}{for} \PYG{n}{char}\PYG{p}{,} \PYG{n}{states} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{items}\PYG{p}{():}
+            \PYG{n}{proxy\PYGZus{}table}\PYG{p}{[}\PYG{n}{char}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[[}\PYG{n}{state}\PYG{p}{]} \PYG{k}{if} \PYG{n}{state} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None} \PYG{k}{else} \PYG{p}{[]} \PYG{k}{for} \PYG{n}{state} \PYG{o+ow}{in} \PYG{n}{states}\PYG{p}{]}
+
+        \PYG{k}{return} \PYG{n}{proxy\PYGZus{}table}
+    
+    \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}getDFATableFromNFATable}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n}{table} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n}{char}\PYG{p}{:[]} \PYG{k}{for} \PYG{n}{char} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{alphabet}\PYG{p}{\PYGZcb{}}
+        \PYG{n}{isStop} \PYG{o}{=} \PYG{k+kc}{False}
+
+        \PYG{k}{for} \PYG{n}{char}\PYG{p}{,} \PYG{n}{states} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{items}\PYG{p}{():}
+            \PYG{k}{if} \PYG{n}{isStop}\PYG{p}{:}
+                \PYG{k}{break}
+
+            \PYG{k}{for} \PYG{n}{state} \PYG{o+ow}{in} \PYG{n}{states}\PYG{p}{:}
+                \PYG{n}{statesNum} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{state}\PYG{p}{)}
+                \PYG{k}{if} \PYG{n}{statesNum} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+                    \PYG{n}{table}\PYG{p}{[}\PYG{n}{char}\PYG{p}{]}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{k+kc}{None}\PYG{p}{)}
+                \PYG{k}{elif} \PYG{n}{statesNum} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{:}
+                    \PYG{n}{table}\PYG{p}{[}\PYG{n}{char}\PYG{p}{]}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{state}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])}
+                \PYG{k}{else}\PYG{p}{:}
+                    \PYG{c+c1}{\PYGZsh{} print(\PYGZdq{}ERROR: \PYGZus{}\PYGZus{}getDFATableFromNFATable:\PYGZdq{}, self.proxy.table)}
+                    \PYG{n}{table} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+                    \PYG{n}{isStop} \PYG{o}{=} \PYG{o+ow}{not} \PYG{n}{isStop}
+                    \PYG{k}{break}
+
+        \PYG{k}{return} \PYG{n}{table}
+
+    \PYG{k}{def} \PYG{n+nf}{accepts}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{input\PYGZus{}string}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{bool}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy}\PYG{o}{.}\PYG{n}{accepts}\PYG{p}{(}\PYG{n}{input\PYGZus{}string}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{show\PYGZus{}automata}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n+nb}{type}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy}\PYG{o}{.}\PYG{n}{show\PYGZus{}automata}\PYG{p}{(}\PYG{n+nb}{type}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{num\PYGZus{}of\PYGZus{}states}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy}\PYG{o}{.}\PYG{n}{num\PYGZus{}of\PYGZus{}states}\PYG{p}{()}
+
+    \PYG{k}{def} \PYG{n+nf}{getAlphabet}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy}\PYG{o}{.}\PYG{n}{getAlphabet}\PYG{p}{()}
+    
+    \PYG{k}{def} \PYG{n+nf}{revertDFA}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{n}{final\PYGZus{}state\PYGZus{}tmp} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{final\PYGZus{}states}\PYG{p}{[:]}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{final\PYGZus{}states} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{start\PYGZus{}states}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{start\PYGZus{}states} \PYG{o}{=} \PYG{n}{final\PYGZus{}state\PYGZus{}tmp}
+
+        \PYG{n}{new\PYGZus{}table} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n}{char}\PYG{p}{:} \PYG{p}{[[]} \PYG{k}{for} \PYG{n}{\PYGZus{}} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{states}\PYG{p}{))]} \PYG{k}{for} \PYG{n}{char} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{alphabet}\PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{for} \PYG{n}{char}\PYG{p}{,} \PYG{n}{state\PYGZus{}list} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{items}\PYG{p}{():}
+            \PYG{k}{for} \PYG{n}{start\PYGZus{}state}\PYG{p}{,} \PYG{n}{char\PYGZus{}states} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{state\PYGZus{}list}\PYG{p}{):}
+                \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{char\PYGZus{}states}\PYG{p}{)} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{:}
+                    \PYG{k}{for} \PYG{n}{end\PYGZus{}state} \PYG{o+ow}{in} \PYG{n}{char\PYGZus{}states}\PYG{p}{:}
+                        \PYG{n}{new\PYGZus{}table}\PYG{p}{[}\PYG{n}{char}\PYG{p}{][}\PYG{n}{end\PYGZus{}state}\PYG{p}{]}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{start\PYGZus{}state}\PYG{p}{)}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy}\PYG{o}{.}\PYG{n}{table} \PYG{o}{=} \PYG{n}{new\PYGZus{}table}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}getDFATableFromNFATable}\PYG{p}{()}
+
+    \PYG{k}{def} \PYG{n+nf}{detDFA}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{k}{def} \PYG{n+nf}{reachable}\PYG{p}{(}\PYG{n}{q}\PYG{p}{,} \PYG{n}{state}\PYG{p}{):}
+            \PYG{n}{t} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{()}
+            \PYG{k}{for} \PYG{n}{char} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{alphabet}\PYG{p}{:}
+                \PYG{n}{ts} \PYG{o}{=} \PYG{n+nb}{set}\PYG{p}{()}
+                \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{q}\PYG{p}{[}\PYG{n}{state}\PYG{p}{]:}
+                    \PYG{n}{ts} \PYG{o}{|=} \PYG{n+nb}{set}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy}\PYG{o}{.}\PYG{n}{table}\PYG{p}{[}\PYG{n}{char}\PYG{p}{][}\PYG{n}{i}\PYG{p}{])}
+                \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{ts}\PYG{p}{:}
+                    \PYG{n}{t}\PYG{p}{[}\PYG{n}{char}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[]}
+                    \PYG{k}{continue}
+                \PYG{k}{try}\PYG{p}{:}
+                    \PYG{n}{i} \PYG{o}{=} \PYG{n}{q}\PYG{o}{.}\PYG{n}{index}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{)}
+                \PYG{k}{except} \PYG{n+ne}{ValueError}\PYG{p}{:}
+                    \PYG{n}{i} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{q}\PYG{p}{)}
+                    \PYG{n}{q}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{)}
+                \PYG{n}{t}\PYG{p}{[}\PYG{n}{char}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+            \PYG{k}{return} \PYG{n}{t}
+
+        \PYG{n}{q} \PYG{o}{=} \PYG{p}{[}\PYG{n+nb}{set}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{start\PYGZus{}states}\PYG{p}{)]}
+        \PYG{n}{new\PYGZus{}table} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n}{char}\PYG{p}{:} \PYG{p}{[]} \PYG{k}{for} \PYG{n}{char} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{alphabet}\PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{while} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{new\PYGZus{}table}\PYG{o}{.}\PYG{n}{values}\PYG{p}{())[}\PYG{l+m+mi}{0}\PYG{p}{])} \PYG{o}{\PYGZlt{}} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{q}\PYG{p}{):}
+            \PYG{n}{tmp} \PYG{o}{=} \PYG{n}{reachable}\PYG{p}{(}\PYG{n}{q}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{new\PYGZus{}table}\PYG{o}{.}\PYG{n}{values}\PYG{p}{())[}\PYG{l+m+mi}{0}\PYG{p}{]))} \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZgt{} \PYGZob{}a: [[]], b: [[]]\PYGZcb{}}
+            \PYG{k}{for} \PYG{n}{char} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{alphabet}\PYG{p}{:}
+                \PYG{n}{new\PYGZus{}table}\PYG{p}{[}\PYG{n}{char}\PYG{p}{]}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{tmp}\PYG{p}{[}\PYG{n}{char}\PYG{p}{])}
+        
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{start\PYGZus{}states} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{states} \PYG{o}{=} \PYG{p}{[}\PYG{n}{i} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{q}\PYG{p}{))]}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{final\PYGZus{}states} \PYG{o}{=} \PYG{p}{[}\PYG{n}{q}\PYG{o}{.}\PYG{n}{index}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{q} \PYG{k}{if} \PYG{n+nb}{set}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{final\PYGZus{}states}\PYG{p}{)} \PYG{o}{\PYGZam{}} \PYG{n}{i}\PYG{p}{]}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy}\PYG{o}{.}\PYG{n}{table} \PYG{o}{=} \PYG{n}{new\PYGZus{}table}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}getDFATableFromNFATable}\PYG{p}{()}
+    
+    \PYG{k}{def} \PYG{n+nf}{model\PYGZus{}check}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{check\PYGZus{}str}\PYG{p}{):}
+        \PYG{n}{check\PYGZus{}arr} \PYG{o}{=} \PYG{p}{[}\PYG{o}{*}\PYG{n}{check\PYGZus{}str}\PYG{p}{]}
+        \PYG{n}{size} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{p}{[}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{())[}\PYG{l+m+mi}{0}\PYG{p}{]])}
+        \PYG{n}{Ssize} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{p}{)}
+        \PYG{n}{true\PYGZus{}table} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{full}\PYG{p}{((}\PYG{n}{size}\PYG{p}{,}\PYG{n}{size}\PYG{p}{,}\PYG{n}{Ssize}\PYG{p}{),} \PYG{k+kc}{None}\PYG{p}{)}
+        \PYG{n}{j} \PYG{o}{=} \PYG{l+m+mi}{0}
+        \PYG{k}{for} \PYG{n}{char}\PYG{p}{,} \PYG{n}{state\PYGZus{}list} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{items}\PYG{p}{():}
+            \PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{s} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{state\PYGZus{}list}\PYG{p}{):}
+                \PYG{k}{if} \PYG{n}{s} \PYG{o}{!=} \PYG{k+kc}{None}\PYG{p}{:}
+                    \PYG{n}{true\PYGZus{}table}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{s}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{n}{char}
+            \PYG{n}{j} \PYG{o}{+=} \PYG{l+m+mi}{1}
+        
+        \PYG{n}{carette} \PYG{o}{=} \PYG{l+m+mi}{0}
+        
+        \PYG{k}{while}\PYG{p}{(}\PYG{k+kc}{True}\PYG{p}{):}
+            \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{check\PYGZus{}arr}\PYG{p}{:}
+                \PYG{k}{break}
+            \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{size}\PYG{p}{):}
+                \PYG{k}{if} \PYG{n}{check\PYGZus{}arr}\PYG{p}{:}
+                    \PYG{n}{arr} \PYG{o}{=} \PYG{p}{[]}
+                    \PYG{k}{for} \PYG{n}{a} \PYG{o+ow}{in} \PYG{n}{true\PYGZus{}table}\PYG{p}{[}\PYG{n}{carette}\PYG{p}{]:}
+                        \PYG{k}{for} \PYG{n}{b} \PYG{o+ow}{in} \PYG{n}{a}\PYG{p}{:}
+                            \PYG{n}{arr}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{b}\PYG{p}{)}
+                    \PYG{k}{if} \PYG{n}{check\PYGZus{}arr}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{arr}\PYG{p}{:}
+                        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}ERROR\PYGZsq{}}\PYG{p}{)}
+                        \PYG{k}{return}
+                    \PYG{k}{for} \PYG{n}{symbol} \PYG{o+ow}{in} \PYG{n}{true\PYGZus{}table}\PYG{p}{[}\PYG{n}{carette}\PYG{p}{][}\PYG{n}{i}\PYG{p}{]:}
+                        \PYG{k}{if} \PYG{n}{check\PYGZus{}arr}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{==} \PYG{n}{symbol}\PYG{p}{:}
+                            \PYG{n}{check\PYGZus{}arr}\PYG{o}{.}\PYG{n}{pop}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+                            \PYG{n}{carette} \PYG{o}{=} \PYG{n}{i}
+                            \PYG{k}{break}
+
+        \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{check\PYGZus{}arr} \PYG{o+ow}{and} \PYG{n}{carette} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{final\PYGZus{}states}\PYG{p}{:}
+            \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}OK\PYGZsq{}}\PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}ERROR\PYGZsq{}}\PYG{p}{)}
+
+        \PYG{k}{return}
+    
+    \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}getStartStates}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{states}\PYG{p}{:} \PYG{n}{List}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{])} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{List}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]:}
+        \PYG{k}{for} \PYG{n}{\PYGZus{}}\PYG{p}{,} \PYG{n}{state\PYGZus{}list} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{proxy}\PYG{o}{.}\PYG{n}{table}\PYG{o}{.}\PYG{n}{items}\PYG{p}{():}
+            \PYG{k}{for} \PYG{n}{start\PYGZus{}state}\PYG{p}{,} \PYG{n}{char\PYGZus{}states} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{state\PYGZus{}list}\PYG{p}{):}
+                \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{char\PYGZus{}states}\PYG{p}{)} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{:}
+                    \PYG{k}{for} \PYG{n}{end\PYGZus{}state} \PYG{o+ow}{in} \PYG{n}{char\PYGZus{}states}\PYG{p}{:}
+                        \PYG{k}{if} \PYG{n}{start\PYGZus{}state} \PYG{o}{!=} \PYG{n}{end\PYGZus{}state} \PYG{o+ow}{and} \PYG{n}{end\PYGZus{}state} \PYG{o+ow}{in} \PYG{n}{states}\PYG{p}{:}
+                            \PYG{n}{states}\PYG{o}{.}\PYG{n}{remove}\PYG{p}{(}\PYG{n}{end\PYGZus{}state}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{states}
+\end{Verbatim}
