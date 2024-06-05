@@ -79,15 +79,15 @@ operations = {
     '|': alternate,
     ',': concatenate
 }
-priorities = {
-    '|': 0,
-    ',': 1,
-    '*': 2,
-    '+': 2
-}
+priorities = { 
+    '|': 0, 
+    ',': 1, 
+    '*': 2, 
+    '+': 2 
+} 
 
-binary = ['|', ',']
-unary = ['*', '+', '?']
+binary = ['|', ','] 
+unary = ['*', '+', '?'] 
 
 
 def is_character(c):
@@ -123,42 +123,45 @@ def create_nfa(regexp):
     automata_stack = []
     buffer = ''
 
-    def avalanche(priority=-1):
+    def avalanche(priority=-1): 
         while len(op_stack) != 0 \
                 and op_stack[-1] != '(' \
                 and (op_stack[-1] not in operations.keys() or priorities[op_stack[-1]] > priority):
             op = op_stack[-1]
             if op in binary:
-                automata_stack.append(operations[op](automata_stack[-2], automata_stack[-1]))
+                automata_stack.append(operations[op](automata_stack[-2], automata_stack[-1])) 
+                automata_stack.pop(-2) 
                 automata_stack.pop(-2)
-                automata_stack.pop(-2)
-                op_stack.pop()
-            elif op in unary:
-                automata_stack.append(operations[op](automata_stack[-1]))
-                automata_stack.pop(-2)
-                op_stack.pop()
-        if priority == -1 and len(op_stack) != 0 and op_stack[-1] == '(':
-            op_stack.pop()
+                op_stack.pop() 
+            elif op in unary: 
+                automata_stack.append(operations[op](automata_stack[-1])) 
+                automata_stack.pop(-2) 
+                op_stack.pop() 
+        if priority == -1 and len(op_stack) != 0 and op_stack[-1] == '(': 
+            op_stack.pop() 
 
-    regexp = prepare_regexp(regexp)
+    regexp = prepare_regexp(regexp) 
 
-    for c in regexp:
-        if c in list(operations.keys()) + ['(', ')']:
-            if buffer != '':
-                automata_stack.append(primitive_nfda(buffer))
-            buffer = ''
-        if c in operations:
-            if len(op_stack) == 0 or op_stack[-1] in ['(', ')'] or priorities[op_stack[-1]] < priorities[c]:
-                op_stack.append(c)
-            else:
-                avalanche(priorities[c])
-                op_stack.append(c)
-        elif c == '(':
-            op_stack.append('(')
-        elif c == ')':
-            avalanche()
-        else:
-            buffer += c
+    print(regexp)
+ 
+    for c in regexp: 
+        if c in list(operations.keys()) + ['(', ')']: 
+            if buffer != '': 
+                automata_stack.append(primitive_nfda(buffer)) 
+            buffer = '' 
+
+        if c in operations: 
+            if len(op_stack) == 0 or op_stack[-1] in ['(', ')'] or priorities[op_stack[-1]] < priorities[c]: 
+                op_stack.append(c) 
+            else: 
+                avalanche(priorities[c]) 
+                op_stack.append(c) 
+        elif c == '(': 
+            op_stack.append('(') 
+        elif c == ')': 
+            avalanche() 
+        else: 
+            buffer += c 
 
     if buffer != '':
         automata_stack.append(primitive_nfda(buffer))

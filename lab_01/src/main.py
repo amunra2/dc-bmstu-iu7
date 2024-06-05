@@ -1,6 +1,9 @@
 from builder import *
 import sys
 
+# from regularExpression import convertRegexToDesiredFormat, getTreeRegex
+# from parseTree import ParseTree
+
 
 def main():
     regexp = input("Введите регулярное выражение: ")
